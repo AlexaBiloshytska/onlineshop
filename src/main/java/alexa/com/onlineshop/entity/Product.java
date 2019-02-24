@@ -18,20 +18,20 @@ public class Product {
         this.id = id;
     }
 
-    public String getProductname() {
+    public String getProductName() {
         return productName;
     }
 
-    public void setProductname(String productname) {
-        this.productName = productname;
-    }
-
-    public String getProducttype() {
+    public String getProductType() {
         return productType;
     }
 
-    public void setProducttype(String producttype) {
-        this.productType = producttype;
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
     }
 
     public String getDescription() {

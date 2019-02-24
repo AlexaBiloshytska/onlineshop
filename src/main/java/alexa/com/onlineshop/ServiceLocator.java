@@ -24,10 +24,12 @@ public class ServiceLocator {
 
         //config DAO
         PGPoolingDataSource source = new PGPoolingDataSource();
-        source.setServerName("localhost");
-        source.setDatabaseName("postgres");
-        source.setUser("postgres");
-        source.setPassword("postgres");
+        source.setServerName("ec2-54-228-224-37.eu-west-1.compute.amazonaws.com");
+        source.setDatabaseName("d6hd4raa7s2md8");
+        source.setUser("rvtwtvhohmgbpq");
+        source.setPassword("79b60efd633d2197e8db5f053b3b1f6a223bed447eaddbbf63c89ab3bd2c1991");
+        source.setSsl(true);
+        source.setSslfactory("org.postgresql.ssl.NonValidatingFactory");
         source.setPortNumber(5432);
         source.setMaxConnections(10);
 

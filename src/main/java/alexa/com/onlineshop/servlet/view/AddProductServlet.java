@@ -34,8 +34,8 @@ public class AddProductServlet extends HttpServlet {
 
         Product product = new Product();
         product.setId(id);
-        product.setProductname(productName);
-        product.setProducttype(productType);
+        product.setProductName(productName);
+        product.setProductType(productType);
         product.setDescription(description);
         product.setStock(stock);
         product.setPrice(price);

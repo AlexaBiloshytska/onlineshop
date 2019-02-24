@@ -8,17 +8,17 @@ import java.sql.SQLException;
 public class ProductMapper {
     public Product mapRow(ResultSet resultSet) throws SQLException {
         Integer id = resultSet.getInt("id");
-        String productName = resultSet.getString("product");
-        String type = resultSet.getString("productType");
+        String productName = resultSet.getString("product_name");
+        String type = resultSet.getString("product_type");
         String description = resultSet.getString("description");
         Integer stock = resultSet.getInt("stock");
         Integer price = resultSet.getInt("price");
-        String image = resultSet.getString("image");
+        String image = resultSet.getString("image_source");
 
         Product product = new Product();
         product.setId(id);
-        product.setProductname(productName);
-        product.setProducttype(type);
+        product.setProductName(productName);
+        product.setProductType(type);
         product.setDescription(description);
         product.setStock(stock);
         product.setPrice(price);

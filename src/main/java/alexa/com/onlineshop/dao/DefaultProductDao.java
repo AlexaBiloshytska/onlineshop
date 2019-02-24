@@ -12,8 +12,8 @@ public class DefaultProductDao {
     private DefaultProductDao(){
         Product product = new Product();
         product.setId(1);
-        product.setProductname("Computer");
-        product.setProducttype("Electronics");
+        product.setProductName("Computer");
+        product.setProductType("Electronics");
         product.setDescription("A new laptop of Asus Zenbook series");
         product.setStock(50);
         product.setPrice(1000);

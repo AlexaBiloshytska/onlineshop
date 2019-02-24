@@ -12,16 +12,16 @@ import java.util.List;
 
 public class JdbcProductDao  implements ProductDao {
     private static final ProductMapper  PRODUCT_MAPPER = new ProductMapper();
-    public static final String GET_ALL_SQL ="select product_id," +
-            "productname," +
-            "producttype," +
+    public static final String GET_ALL_SQL ="select id," +
+            "product_name," +
+            "product_type," +
             "description," +
             "stock," +
             "price," +
             " image_source from product";
     public static final String ADD_PRODUCT_SQL="insert into products (product_id," +
-            "productname," +
-            "producttype," +
+            "product_name," +
+            "product_type," +
             "description," +
             "stock,price," +
             " image_source)values (?,?,?,?,?,?,?)";
@@ -54,8 +54,8 @@ public class JdbcProductDao  implements ProductDao {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_PRODUCT_SQL);) {
             preparedStatement.setInt(1,product.getId());
-            preparedStatement.setString(2,product.getProductname());
-            preparedStatement.setString(3,product.getProducttype());
+            preparedStatement.setString(2,product.getProductName());
+            preparedStatement.setString(3,product.getProductType());
             preparedStatement.setString(4,product.getDescription());
             preparedStatement.setInt(5,product.getStock());
             preparedStatement.setInt(6,product.getPrice());

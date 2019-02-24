@@ -12,8 +12,8 @@ import java.util.List;
 public class JdbcUserDao implements UserDao {
 
         private static final UserMapper USER_MAPPER = new UserMapper();
-        private static final String GET_ALL_SQL = "SELECT id, firstname,lastname email,password  FROM USERS ";
-        private static final String ADD_USER_SQL = "INSERT INTO users (id, firstname,lastname email, password)VALUES (?,?,?,?)";
+        private static final String GET_ALL_SQL = "SELECT id, first_name,last_name email,password  FROM USERS ";
+        private static final String ADD_USER_SQL = "INSERT INTO users (id, first_name,last_name email, password)VALUES (?,?,?,?)";
 
         private DataSource dataSource;
 
