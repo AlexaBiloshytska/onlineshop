@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface UserDao {
     List<User> getAll();
+
     void add(User user);
 
-
+    boolean checkUserExistence(String email, String password);
 }

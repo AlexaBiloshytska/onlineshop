@@ -1,9 +1,10 @@
 package alexa.com.onlineshop.dao.jdbc;
 
 import alexa.com.onlineshop.dao.ProductDao;
-
+import org.slf4j.Logger;
 import alexa.com.onlineshop.dao.mapper.ProductMapper;
 import alexa.com.onlineshop.entity.Product;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -25,13 +26,17 @@ public class JdbcProductDao  implements ProductDao {
             "description," +
             "stock,price," +
             " image_source)values (?,?,?,?,?,?,?)";
+
+    public static final String GET_BY_ID_SQL =
+            "select id, product_name,product_type, description, stock, price, image_source from product where id = ?";
+
     private Connection connection;
     private DataSource dataSource;
 
     public JdbcProductDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-
+    private static final Logger LOG = LoggerFactory.getLogger(JdbcProductDao.class);
     @Override
     public List<Product> getAll() {
         List<Product> products = new ArrayList<>();
@@ -53,6 +58,7 @@ public class JdbcProductDao  implements ProductDao {
     public void add(Product product) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_PRODUCT_SQL);) {
+
             preparedStatement.setInt(1,product.getId());
             preparedStatement.setString(2,product.getProductName());
             preparedStatement.setString(3,product.getProductType());
@@ -68,5 +74,25 @@ public class JdbcProductDao  implements ProductDao {
             System.out.println("Unable to insert product" + product);
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Product getById(int id){
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_ID_SQL)){
+
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            LOG.info("Getting product by id= {}", id);
+            LOG.debug("Query: {}", GET_BY_ID_SQL);
+
+            if (resultSet.next()) {
+                return PRODUCT_MAPPER.mapRow(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Unable get product with id: " + id, e);
+        }
+        return null;
     }
 }

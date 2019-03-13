@@ -2,7 +2,7 @@ package alexa.com.onlineshop.servlet.view;
 
 import alexa.com.onlineshop.entity.Product;
 import alexa.com.onlineshop.service.ProductService;
-import alexa.com.onlineshop.templater.PageGenerator;
+import alexa.com.onlineshop.templater.TemplateProcessor;
 import alexa.com.onlineshop.ServiceLocator;
 
 import javax.servlet.ServletException;
@@ -19,8 +19,8 @@ public class AddProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String page = PageGenerator.getInstance().getPage("addProduct.html", new HashMap<>());
-        response.getWriter().write(page);
+//        String page = TemplateProcessor.getInstance().getPage("addProduct.html", new HashMap<>());
+//        response.getWriter().write(page);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

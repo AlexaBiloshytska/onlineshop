@@ -1,11 +1,14 @@
 package alexa.com.onlineshop.entity;
 
+import javax.management.relation.Role;
+
 public class User {
     private Integer id;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
+    private Role role;
 
     public User() {
     }
@@ -58,6 +61,14 @@ public class User {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -66,6 +77,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

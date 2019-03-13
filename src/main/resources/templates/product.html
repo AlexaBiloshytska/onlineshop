@@ -1,0 +1,179 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Product</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="C:\Users\Alexa\IdeaProjects\online-shop\src\main\resources\templates\assets\css\products.css">
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Online shop </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="category.html">Products <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="product.html">Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="cart.html">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-secondary btn-number">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <a class="btn btn-success btn-sm ml-3" href="cart.html">
+                    <i class="fa fa-shopping-cart"></i> Cart
+                    <span class="badge badge-light">3</span>
+                </a>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="category.html">Category</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Sub-category</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-3">
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
+                <ul class="list-group category_block">
+                    <li class="list-group-item"><a href="category.html">Cras justo odio</a></li>
+                    <li class="list-group-item"><a href="category.html">Dapibus ac facilisis in</a></li>
+                    <li class="list-group-item"><a href="category.html">Morbi leo risus</a></li>
+                    <li class="list-group-item"><a href="category.html">Porta ac consectetur ac</a></li>
+                    <li class="list-group-item"><a href="category.html">Vestibulum at eros</a></li>
+                </ul>
+            </div>
+
+<div class="container">
+    <div class="card">
+        <div class="container-fliud">
+            <div class="wrapper row">
+                <div class="preview col-md-6">
+
+                    <div class="preview-pic tab-content">
+                        <div class="tab-pane active" id="pic-1">< src="https://dyw7ncnq1en5l.cloudfront.net/optim/produits/150/44177/asus-zenbook-plus-ux430_32b80c1cb62a155d__450_400.png"alt="Card image cap"/></div>
+                    </div>
+                    <ul class="preview-thumbnail nav av-tabs">
+                        <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxAQEBAPDxAPDxAPEA8NDRAQDw8NDw8QFREWFhURExMYHSohGBolGxUVITEhJSkrLi4uFx8/RDMuOSgtMCsBCgoKDg0OFxAQGisgHR8tLS4tLS0tLTcrLS0rKystLS0tLSstLS0tKy03LS0tLTAtLS0tKy0rLS0rLS0rLS0tLf/AABEIAOEA4QMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABAECAwUHBgj/xABDEAACAgEBBAcDBwoEBwAAAAAAAQIDBBEFEiExBgcTQVFhcSKBkRRCgpOhotEjMjNSU1RicpTSCHOSsRU0Q2OzwfD/xAAZAQEBAQEBAQAAAAAAAAAAAAAAAgMBBAX/xAAhEQEBAAICAgMBAQEAAAAAAAAAAQIRAxIhMRNBUQRhIv/aAAwDAQACEQMRAD8A7iAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWymlzaXq0gLgWdpH9ZfFFd9eK+IFwKalQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWzmopyk0kk3Jt6JJc22B4vrS6WvZ+NGFMksrJbhS9E3VBab9uj71qkvOS56M4LZa7JOyxuycnrKc25zk/FyfFk7pv0le0s63JTfZLSnFT1WlEW916Pk5NuX0tO41NUz38WHWf6wzu6nVxj4L4IlwivBfBEGqRLrkbM2SUI+C+CIt0F+qvgiWyLeVHGvv0Xl6EOVjXKUl6SaJGTIgzZGTsX/KJ/rzX05fiFl2/tbfrJ/iYGwQpJWbd+2u+ts/EuWff+3v+us/EjIyQgNG0mGfkft8j6638STXnZH7xkfX2/iRqqiTCBcxc2kV7Qyf3jJ/qLv7jNHaeT+85P9Rd/cRYoyRr8eBcxTalR2rlfvOV/UXf3HRup/bmXZk2Y9t1l1LqlYlbKVkq5RlHjGUuKXtaNea9/MHYkdp6ntj9njzypr2rn2cPKEX7X3vZf+WjL+jrOOq493J0MAHzXqAAAAAAAAAAAOZ9eXSj5LhrCrlpdnawnpzhjL9I/pcIejl4HSMi+FcJ2WSUIVxlZOUnpGMYrVyb8EkfJfTbpHLaWdflvVQk+zx4v5lEeEF5N8ZPzkzTjx3U5Xw1tcyVXM10ZGauw9krGxt6Zk2mRp6bDY0WGkqWx7iHkslVvgQ818GVEtTkSIkmZb5cTBqZ2qioSEUSaaTkdW1VkuuourrMyilzZpMU2qRiZow8eBhd2nIxuwvxHEl2pcjFK1swOZa5jsabTYeFLIyKqYLWU5xSXc25JJPy1aT8tT6g2bhxoprph+bVCNafe9Fzfm+fvOPdSGxN+6eZNcKl7Gq+fLWK09Fvt/zQO1Hg/pz3lr8b8U8bAAeZqAAAAAAAAAGDOy4UVWXWyUK6oStsk+UYRWrfwQHLuvzpX8nxYbOqlpbmLfv0fGGNF8n/ADyWnpGZ8/Jm16XbfntHNvzLNV2s/wAnFv8AR1R4Vw90UtfPV95pz0YTURfLKpF8ZmDUuTNJU6TarTYY15pIzM9N+hcyRY9Ziy1Im1JaIxbMy02kWbds4pe8234R9tVOQhBsvpocuPJEqLjHzIk2pSmjQkcFz+wjSyPcYnaVuRKZK/w4GN2EXtCnaDsaSXMpvkbtBvjbrO5l9EXOUYLnJpa+Hi/cuPuIm+e26pdh/LM+Dkta6nvz8N2Ojl8dYR9LDly1Nkm3degmx1h4NNW7uzlFW2J81KSWkX5xiox+iegAPm27u69MmgAHHQAAAAAAAA47/iC6VdnTXsuqXt5G7flafNpjL2IfSlHX0h5nV9q7RrxaLcm6W7VRXK2x83uxWvBd77ku9nx/0k21bn5V+Zd+ffNz3ddVCPKFafhGKS9xWE3XK1oANnFQEi9QbKkc2sM+FXGdkIWWxphKSU7ZxsnGuPfJxgnJ+iRWGN48C97se7V+ZXWp7R1Hozk7Ijj6L5C4Rua3cx4qzLIwj/zE1ZB/nT5VKUVGMVxbbInSSinMnjxxacPddmtmRRCOO41pbqq7PtZbzcnPjHg92vTv15tvObS+w3mdiKVEFotYrhwGPHfNlLlPuPSba6PqjFsy7sSdUIbi3J25FEt+yW7GMNYyhZo3xSlruxbOf/KGY7nPRQcpOMfzYuTcY+i7jCTMsp7d6ypXbDtSNqV1K7udUjtB2hg1Gp3sdUjfG+YN4rqd7OdWbfPpDqX2B8mwu2mtLL3p9GLev33JeajE4J0O2VPLzKaYLVucXy1Se8lFvyTer8os+t8LFhTXXTWtIVQjXBfwxWi/2MubL/nX6rGeWcAHmaAAAAAAAAABr9v7Wqwsa/LueldFcrJeMmuUF5t6JebQHI/8QnSrSNWyqpcZbuTmafqp/kqn6tb79I+Jw9I2O2do25mRdlXPW2+yVs/Ba8oryS0S8kiPGo9WHHqM7kwKBkhUSFWlzKuRpMZEdlkafEv1S5GOVhhlM7vRrbJZcYWyhWKI3tWtJWDXrJHp9zWGnkaPZ8OKN/DkejCajK3y83n4+jNdOJ6TOqNJfUZZ4rxqGC+US3QxsaKFQUOOqgoZ8HGdtkK1r7ckm1zUecpe5Jv3FOO0f4f+j3GzOmvzVu16r58lovhDV+lqO3Gk6G7HWHhUUbu7JR37V4TlxcforSPpFG7MM8t1UgACHQAAAAAAAA4f1+dJu0sr2XVL2at3IzNHzsa/JVP0T3mv4oeB2TbOesbGyMlpyWPTbe4rnJQg5afYfIefn2ZFtl90t626crbZeMpPV6eC7ku5JG3Dju7qM6wqKQcixstcj07Z6XORjlMtlIsbJtdkVbLQCVKmamJiiiVTErGJyrY4MTdV8jVYUTa1npnpkj5MDUZNRvbYmtyKyco7GksgYWjYXVkScTGxcrA0UMjRa0RY0lWHRepTYCyc6Ns0typ7/Hv3GpNeesnWtO9ORzxJt6Jat8El3vwPVqCrUKlx7KO6+/WfOb/1N+7QTHbmV0+sAfMOJtrKq07LJyKtOShfbFfBPQ3OL0/2rXpplyml3WV02a+rcdftM/gv1T5I+hQcSxutzPh+kqxbV/LZVL4qTX2G1xeumH/XwZx86r42fZKMf9ybw5R3vHWAc+w+uDZc/wBJ8qo/zKN//wATkbzE6f7Jt03c/GjrwStn8nevpYkRcMp9K7R6UEfEzqbVrVbVavGuyFi+xkgl0AAFtkFJOMkmpJxkmk00+aa8Dl/SDqZxbrJWYs446lxVLhJ1xenHdlGSaWvHinzOpArHK4+nLNvnba/U3tCpN1RV/wDlWVN6elm4eM2p0UzMfXtqba0u+2m2lP0m1u/ePrwpoX8t+3Or4tnhWpa7kmvGGli+MdSO/DvPsHaPRPZ+Q3K7DxpzfB2dlGFv1kdJfaeZ2n1RbOtX5OWRT4LtFkQ+Fqk/g0V8kNPmQHa9qdRtnF0ZGPZ4KcLcRry1i5p/BHktqdVO06NX8ntnFa+1V2eVr6KDU/ulTKX7crw0ES6ImfJ2NdS922Drl3RsjOif+mxJla6JLnGS89OHx5G+LLJOxEbGsgYyJ9ZtGatiIV8SfJEe2IrrUXwIdkDa3RINsDKxUQJRMbRJsiYpRIsXKmbBpTt7SWijSt/WWiW+3pWm/wCbj9Fm17PR8ZRffqmmpa96ZHx6ZQprhFS3rX283HdbUWtIRafNbur+kIxS013I8o6zqnTxfJb/ACMc+S43UXMd+0+JUi12fNW+1x41WdrHXXvc0k/c2ZodpxinHjy9iNli8tdNH/pKwzyv0i4yfakzDNGyp2fZNpaPek9EnrKyT8FFcW/I9ZsTqxzb9JTgseD+fkaxnp4qmPta+UmjW5Se0SW+nPdzXkTNk7BysyW5iUW5D10brj7EX4SsekI+9o7rsXqu2fTo71LMmu63SNGvfpTHg15S3j2tFEK4qFcYwhFaRjCKhGK8ElwRjlz/AI0nH+uPdF+pdqULtoXKLi1JU4z9rVPVb17XD0ivpHZEtP8A7UqDDLK5e2kknoABLoAAAAAAAAAAMd1MJpxnGM4vnGUVKL9zPObR6v8AZV/GWHVW+e9Q54r18fyTWvvPTg7Loc12h1P48tXj5WRU3yVsasmC9OEZfePOZvVZtKv9FPEyYrwnZj2P6Mk4/eO2gucuc+03CV845/R3aFH6bAyor9aFfymHq5VOSRo3dBtxUo7y4Si3pJPwafFH1UQ9obKx8hbuRRTfHlpbVC1feRrP6cvtPxR8t3QINsT6L2h1X7Kt1caZ48n87HusqS9IauP2HntpdTlctXRlNeEba1Jv1mn/AOi5z432n464XZEtxsdTnGL4R5za5qC/Ofr3LzaOl7U6otow1dcKsjwVV0a2/rdDUY3V7thWRh/w6xRUk5t3Yz1S8Zb6R28mP65Ma8/biztnKclGve4LdblNR7oxfJcOHJ+pLhgRTipy1lJqMe0k5PVvhou73LQ6pidWF1ji5yrxIpxclH8rbLTnF6cNH/Mev2N0B2fjS7XsY33PTW69Rslw5aR03V8DPLLDG+PNXJb7cf2P0SycpP5NTOfdGya7Oj13teKXgnqdA2L1XQi1PKub/wCzj6Rhr/FY1rL4I6OkVM8uXK+vCphGv2VsXGxVpj0wq4aOSWs5L+Kb9p+9mwAMt7UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//9k=" /></a></li>
+                        <li class="active"><a data-target="#pic-2" data-toggle="tab"><img src="https://3dnews.ru/assets/external/illustrations/2017/01/19/946169/ZenBook1.jpg"/></a></li>
+                    </ul>
+                </div>
+                <div class="details col-md-6">
+                    <h3 class="product-title" th:text="${{product.productName}}"> </h3>
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                        </div>
+                    </div>
+
+                    <p class="product-description"th:text="${{product.description}}"></p>
+                    <h4 class="price">current price: <span th:text="${{product.price}}"></span></h4>
+                    <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+                    <div class="action">
+                        <button class="add-to-cart btn btn-default" type="button">add to cart</button>
+                        <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <footer class="text-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-4 col-xl-3">
+                            <h5>About</h5>
+                            <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                            <p class="mb-0">
+                                Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.
+                            </p>
+                        </div>
+
+                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
+                            <h5>Informations</h5>
+                            <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                            <ul class="list-unstyled">
+                                <li><a href="">Link 1</a></li>
+                                <li><a href="">Link 2</a></li>
+                                <li><a href="">Link 3</a></li>
+                                <li><a href="">Link 4</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+                            <h5>Others links</h5>
+                            <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                            <ul class="list-unstyled">
+                                <li><a href="">Link 1</a></li>
+                                <li><a href="">Link 2</a></li>
+                                <li><a href="">Link 3</a></li>
+                                <li><a href="">Link 4</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-4 col-lg-3 col-xl-3">
+                            <h5>Contact</h5>
+                            <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-home mr-2"></i> My company</li>
+                                <li><i class="fa fa-envelope mr-2"></i> email@example.com</li>
+                                <li><i class="fa fa-phone mr-2"></i> + 33 12 14 15 16</li>
+                                <li><i class="fa fa-print mr-2"></i> + 33 12 14 15 16</li>
+                            </ul>
+                        </div>
+                        <div class="col-12 copyright mt-3">
+                            <p class="float-left">
+                                <a href="#">Back to top</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+
+</body>
+</html>

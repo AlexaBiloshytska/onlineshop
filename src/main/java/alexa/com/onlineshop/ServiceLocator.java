@@ -7,6 +7,8 @@ import alexa.com.onlineshop.service.impl.DefaultProductService;
 import alexa.com.onlineshop.service.impl.DefaultUserService;
 import alexa.com.onlineshop.service.ProductService;
 import alexa.com.onlineshop.service.UserService;
+
+import alexa.com.onlineshop.service.impl.SessionService;
 import org.postgresql.ds.PGPoolingDataSource;
 
 import java.util.HashMap;
@@ -42,6 +44,10 @@ public class ServiceLocator {
 
         ProductService productService = new DefaultProductService(productDao);
         map.put(ProductService.class,productService);
+
+        // Add sessionService
+        SessionService sessionService = new SessionService(userService);
+        map.put(SessionService.class, sessionService);
 
         return map;
 
