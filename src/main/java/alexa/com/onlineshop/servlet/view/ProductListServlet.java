@@ -24,7 +24,7 @@ import java.util.Map;
 public class ProductListServlet extends HttpServlet {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private ProductService productService = ServiceLocator.get(ProductService.class);
-    private String requestedPage ="productsList.html";
+    private String requestedPage ="product-list.html";
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

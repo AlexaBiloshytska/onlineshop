@@ -17,10 +17,8 @@ public class AssetsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String pathInfo = "assets" + request.getPathInfo();
 
-        InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(pathInfo);
-
+        InputStream resourceAsStream = this.getClass().getClassLoader().getResourceAsStream(request.getRequestURI());
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(resourceAsStream));
         StringBuilder fileAsText = new StringBuilder();
@@ -29,7 +27,6 @@ public class AssetsServlet extends HttpServlet {
         while ((line = reader.readLine()) != null) {
             fileAsText.append(line);
         }
-
         response.getWriter().write(fileAsText.toString());
     }
 }
