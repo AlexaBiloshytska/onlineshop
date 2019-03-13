@@ -98,16 +98,19 @@
                 <!--Product List-->
                 <div class="col-12 col-md-6 col-lg-4" th:each="product: ${products}">
                     <div class="card">
-                        <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
+                        <a th:href="@{'products/'+${product.id}}">
+                            <img class="img-fluid" th:src="${product.imageSource}" alt="img"/>
+                        </a>
                         <div class="card-body">
-                            <h4 class="card-title"><a href="product.html" title="View Product" th:text="${{product.productName}}"></a></h4>
-                            <p class="card-text" th:text="${{product.description}}"></p>
+                            <h4 class="card-title"><a href="product.html" title="View Product" th:text="${product.productName}"></a></h4>
+                            <p class="card-text" th:text="${product.description}"></p>
                             <div class="row">
                                 <div class="col">
-                                    <p class="btn btn-danger btn-block" th:text="${{product.price}}"> </p>
+                                    <p class="btn btn-danger btn-block" th:text="${product.price}"> </p>
                                 </div>
                                 <div class="col">
-                                    <a href="https://www.google.com/search?q=asus+zenbook+430&rlz=1C1SQJL_ruUA820UA820&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiVycL7t_3gAhVmoosKHbWTCLIQ_AUIDigB&biw=1280&bih=578#imgrc=UY8w0SqifoM0fM:" class="btn btn-success btn-block">Add to cart</a>
+                                    <!--TODO add for to send PST request to add to card-->
+                                    <a class="btn btn-success btn-block">Add to cart</a>
                                 </div>
                             </div>
                         </div>
