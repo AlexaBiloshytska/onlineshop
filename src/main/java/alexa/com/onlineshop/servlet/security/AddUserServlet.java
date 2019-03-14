@@ -43,7 +43,6 @@ public class AddUserServlet extends HttpServlet {
 
         userService.add(user);
 
-        response.sendRedirect("/login");
 
     }
 

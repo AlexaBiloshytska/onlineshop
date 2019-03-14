@@ -28,7 +28,10 @@ public class JdbcProductDao  implements ProductDao {
             " image_source)values (?,?,?,?,?,?,?)";
 
     public static final String GET_BY_ID_SQL =
-            "select id, product_name,product_type, description, stock, price, image_source from product where id = ?";
+            "select * from product where id = ?";
+
+    public static final String SEARCH_PRODUCT_SQL =
+            "select * from product where product_name like ?" ;
 
     private Connection connection;
     private DataSource dataSource;
@@ -94,5 +97,25 @@ public class JdbcProductDao  implements ProductDao {
             throw new RuntimeException("Unable get product with id: " + id, e);
         }
         return null;
+    }
+
+    @Override
+    public List<Product> searchByName(String name) {
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_PRODUCT_SQL);){
+
+            preparedStatement.setString(1, "%" + name + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Product> products = new ArrayList<>();
+            while (resultSet.next()) {
+                Product product = PRODUCT_MAPPER.mapRow(resultSet);
+                products.add(product);
+            }
+            return products;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Unable to get product", e);
+        }
     }
 }

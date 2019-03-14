@@ -26,4 +26,9 @@ public class DefaultProductService implements ProductService {
     public Product getById(int id) {
         return productDao.getById(id);
     }
+
+    @Override
+    public List<Product> search(String name) {
+        return productDao.searchByName(name);
+    }
 }

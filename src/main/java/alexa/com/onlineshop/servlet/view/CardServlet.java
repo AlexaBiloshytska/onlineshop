@@ -16,19 +16,6 @@ public class CardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Session curSession = (Session) req.getAttribute("session"); // ?
 
-        if (curSession != null) {
-            List<Product> products = curSession.getCart();
-
-//            TemplateProcessor templateProcessor = TemplateProcessor.getInstance();
-//            Map<String, Object> map = new HashMap<>();
-//            map.put("products", products);
-//            String page = templateProcessor.getPage("card", map);
-
-//            resp.getWriter().write(page);
-        } else {
-            resp.sendRedirect("/login");
-        }
     }
 }

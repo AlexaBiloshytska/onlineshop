@@ -8,5 +8,6 @@ public interface ProductService {
     List<Product> getAll();
     void  add(Product product);
     Product getById(int id);
+    List <Product> search(String name);
 
 }

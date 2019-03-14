@@ -8,5 +8,6 @@ public interface ProductDao {
     List<Product> getAll();
     void add(Product product);
     Product getById(int id);
+    List<Product> searchByName(String name);
 
 }

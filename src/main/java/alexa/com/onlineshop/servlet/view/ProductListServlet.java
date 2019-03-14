@@ -30,7 +30,14 @@ public class ProductListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("[info] getting all products");
 
-        List<Product> products = productService.getAll();
+        String productName = request.getParameter("productName");
+
+        List<Product> products;
+        if (productName != null){
+            products = productService.search(productName);
+        } else {
+            products = productService.getAll();
+        }
 
         Map<String, Object> pageVariables = new HashMap<>();
         pageVariables.put("products", products);
