@@ -108,6 +108,13 @@
             <version>3.0.11.RELEASE</version>
         </dependency>
 
+        <!--for registration-->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.11</version>
+        </dependency>
+
 
     </dependencies>
 </project>

@@ -10,4 +10,6 @@ public interface UserDao {
     void add(User user);
 
     boolean checkUserExistence(String email, String password);
+
+    User getUserByEmail(String email);
 }

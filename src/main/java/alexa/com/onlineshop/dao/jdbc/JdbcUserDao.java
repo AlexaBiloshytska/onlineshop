@@ -12,9 +12,10 @@ import java.util.List;
 public class JdbcUserDao implements UserDao {
 
     private static final UserMapper USER_MAPPER = new UserMapper();
-    private static final String GET_ALL_SQL = "SELECT id, first_name,last_name email,password  FROM USERS ";
-    private static final String ADD_USER_SQL = "INSERT INTO users (id, first_name,last_name email, password)VALUES (?,?,?,?)";
-    private static final String GET_USER_SQL = "SELECT * FROM USERS WHERE email = ? AND password = ?";
+    private static final String GET_ALL_SQL = "SELECT id, first_name,last_name email,  FROM USERS ";
+    private static final String ADD_USER_SQL = "INSERT INTO USERS(first_name, last_name, email, hash, salt) VALUES (?,?,?,?,?)";
+    private static final String GET_USER_SQL = "SELECT * FROM USERS WHERE email = ? ";
+    private static final String GET_USER_BY_EMAIL = "SELECT id,first_name, last_name, email, salt, hash from USERS where email=?";
 
     private DataSource dataSource;
 
@@ -40,13 +41,14 @@ public class JdbcUserDao implements UserDao {
     public void add(User user) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER_SQL)) {
-            preparedStatement.setInt(1, user.getId());
-            preparedStatement.setString(2, user.getFirstName());
-            preparedStatement.setString(3, user.getLastName());
-            preparedStatement.setString(4, user.getEmail());
-            preparedStatement.setString(5, user.getPassword());
+            preparedStatement.setString(1, user.getFirstName());
+            preparedStatement.setString(2, user.getLastName());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, user.getHash());
+            preparedStatement.setString(5,user.getSalt());
+
+
             preparedStatement.execute();
-            connection.commit();
 
             System.out.println("Data is successfully inserted: " + user);
         } catch (Exception e) {
@@ -59,13 +61,25 @@ public class JdbcUserDao implements UserDao {
     public boolean checkUserExistence(String email, String password) {
         try (PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(GET_USER_SQL)){
             preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             return resultSet.next();
 
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+    public User getUserByEmail(String email) {
+        try (PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(GET_USER_BY_EMAIL)) {
+
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            resultSet.next();
+
+            return USER_MAPPER.mapRow(resultSet);
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

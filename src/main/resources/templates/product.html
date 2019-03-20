@@ -111,7 +111,10 @@
                                 <p class="product-description"th:text="${{product.description}}"></p>
                                 <h4 class="price">Price: <span th:text="${{product.price}}"></span></h4>
                                 <div class="action">
-                                    <button class="add-to-cart btn btn-default" type="button">add to cart</button>
+                                    <form action="/cart" method="post" class="add-to-cart btn btn-default">
+                                        <input type="hidden" name="id" th:value="${product.id}">
+                                        <button class="btn btn-success btn-block" type="submit">add to cart</button>
+                                    </form>
                                 </div>
                             </div>
                             <!--End of details-->
@@ -173,11 +176,6 @@
                     <li><i class="fa fa-phone mr-2"></i> + 33 12 14 15 16</li>
                     <li><i class="fa fa-print mr-2"></i> + 33 12 14 15 16</li>
                 </ul>
-            </div>
-            <div class="col-12 copyright mt-3">
-                <p class="float-left">
-                    <a href="#">Back to top</a>
-                </p>
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 package alexa.com.onlineshop.filter;
 
 import alexa.com.onlineshop.ServiceLocator;
-import alexa.com.onlineshop.service.impl.SessionService;
+import alexa.com.onlineshop.service.impl.DefaultSecurityService;
 import alexa.com.onlineshop.service.UserService;
 
 import javax.servlet.*;
@@ -14,13 +14,12 @@ import java.io.IOException;
 @WebFilter(urlPatterns = "/*")
 public class UserFilter  implements Filter {
     private UserService userService = ServiceLocator.get(UserService.class);
-    private SessionService sessionService = ServiceLocator.get(SessionService.class);
+    private DefaultSecurityService sessionService = ServiceLocator.get(DefaultSecurityService.class);
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) throws ServletException {}
 
-    }
-
+    // Pattern chain of responsibility
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
@@ -29,26 +28,30 @@ public class UserFilter  implements Filter {
 
         String requestURI = httpServletRequest.getRequestURI();
 
-        if (requestURI.equals("/login") || requestURI.startsWith("/assets/")) {
+        if (requestURI.equals("/login") ||
+                requestURI.equals("/registration") ||
+                requestURI.startsWith("/assets/")) {
             chain.doFilter(request, response);
         } else {
             Cookie[] cookies = httpServletRequest.getCookies();
             if (cookies == null){
                 httpServletResponse.sendRedirect("/login");
                 return;
-
             }
 
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("user-token")) {
                     String token = cookie.getValue();
+                    // TODO Session session = sessionService.getSessionByToken(getSessionByToken)
                     if (sessionService.isValid(token)) {
+                        // TODO: AuthRequestWrapper authRequestWrapper = new AuthRequestWrapper(httpServletRequest , session);
                         chain.doFilter(request, response);
                         return;
                     }
                 }
             }
 
+            // log required
             httpServletResponse.sendRedirect("/login");
         }
 

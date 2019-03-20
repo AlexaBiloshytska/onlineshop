@@ -9,6 +9,13 @@ public class Session {
     private User user;
     private List<Product> cart = new ArrayList<>();
     private LocalDateTime expireDate;
+    private double maxAge;
+
+    public Session(String token, User user, LocalDateTime expireDate) {
+        this.token = token;
+        this.user = user;
+        this.expireDate = expireDate;
+    }
 
     public String getToken() {
         return token;
@@ -44,7 +51,7 @@ public class Session {
 
     @Override
     public String toString() {
-        return "Session{" +
+        return "SecurityService{" +
                 "token='" + token + '\'' +
                 ", user=" + user +
                 ", cart=" + cart +

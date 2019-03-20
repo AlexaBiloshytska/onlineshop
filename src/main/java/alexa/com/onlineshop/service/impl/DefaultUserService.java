@@ -18,7 +18,7 @@ public class DefaultUserService implements UserService {
         return userDao.getAll();
     }
 
-    public void  add(User user) {
+    public void add(User user) {
         userDao.add(user);
     }
 
@@ -27,7 +27,16 @@ public class DefaultUserService implements UserService {
         return userDao.checkUserExistence(email, password);
     }
 
+    @Override
+    public User auth(String surname, String password) {
+        return new User();
 
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
+    }
 
 
 }

@@ -109,8 +109,10 @@
                                     <p class="btn btn-danger btn-block" th:text="${product.price}"> </p>
                                 </div>
                                 <div class="col">
-                                    <!--TODO add for to send PST request to add to card-->
-                                    <a class="btn btn-success btn-block">Add to cart</a>
+                                    <form action="/cart" method="post" class="add-to-cart btn btn-default">
+                                        <input type="hidden" name="id" th:value="${product.id}">
+                                        <button class="btn btn-success btn-block" type="submit">add to cart</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -163,17 +165,13 @@
                 <h5>Contact</h5>
                 <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
                 <ul class="list-unstyled">
-                    <li><i class="fa fa-home mr-2"></i> My company</li>
-                    <li><i class="fa fa-envelope mr-2"></i> email@example.com</li>
-                    <li><i class="fa fa-phone mr-2"></i> + 33 12 14 15 16</li>
-                    <li><i class="fa fa-print mr-2"></i> + 33 12 14 15 16</li>
+                    <li><i class="fa fa-home mr-2"></i> Alexa Online-Shop</li>
+                    <li><i class="fa fa-envelope mr-2"></i> online-shop@gmail.com</li>
+                    <li><i class="fa fa-phone mr-2"></i> + 044 312 07 19 </li>
+                    <li><i class="fa fa-print mr-2"></i> + 044 312 07 19 </li>
                 </ul>
             </div>
-            <div class="col-12 copyright mt-3">
-                <p class="float-left">
-                    <a href="#">Back to top</a>
-                </p>
-            </div>
+
         </div>
     </div>
 </footer>

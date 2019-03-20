@@ -19,9 +19,11 @@ public class DefaultProductService implements ProductService {
     }
 
     @Override
-    public void add(Product user) {
+    public void add(Product product) {
 
     }
+
+
     @Override
     public Product getById(int id) {
         return productDao.getById(id);

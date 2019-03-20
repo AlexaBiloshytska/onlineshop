@@ -7,18 +7,36 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private Role role;
+    private String salt;
+    private String hash;
 
     public User() {
     }
 
-    public User(Integer id, String firstName, String lastName, String email, String password) {
+    public User(Integer id, String firstName, String lastName, String emai) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        this.hash = hash;
+        this.salt = salt;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
     }
 
     public Integer getId() {
@@ -53,13 +71,6 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public Role getRole() {
         return role;
@@ -76,8 +87,9 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", role=" + role +
+                ", salt='" + salt + '\'' +
+                ", hash=" + hash +
                 '}';
     }
 }
