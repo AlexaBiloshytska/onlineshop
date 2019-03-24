@@ -3,6 +3,7 @@ package alexa.com.onlineshop;
 import alexa.com.onlineshop.dao.ProductDao;
 import alexa.com.onlineshop.dao.UserDao;
 import alexa.com.onlineshop.dao.jdbc.*;
+import alexa.com.onlineshop.service.SecurityService;
 import alexa.com.onlineshop.service.impl.DefaultProductService;
 import alexa.com.onlineshop.service.impl.DefaultSecurityService;
 import alexa.com.onlineshop.service.impl.DefaultUserService;
@@ -46,8 +47,8 @@ public class ServiceLocator {
         map.put(ProductService.class,productService);
 
         // Add sessionService
-        DefaultSecurityService sessionService = new DefaultSecurityService(userService);
-        map.put(DefaultSecurityService.class, sessionService);
+        SecurityService sessionService = new DefaultSecurityService();
+        map.put(SecurityService.class, sessionService);
 
         return map;
 

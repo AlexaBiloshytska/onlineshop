@@ -1,4 +1,4 @@
-package alexa.com.onlineshop.servlet.view;
+package alexa.com.onlineshop.entity;
 
 
 import alexa.com.onlineshop.entity.AuthPrincipal;
@@ -6,6 +6,7 @@ import alexa.com.onlineshop.entity.Session;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 

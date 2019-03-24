@@ -9,8 +9,12 @@ public class AuthPrincipal implements Principal {
         this.session = session;
     }
 
+    public Session getSession() {
+        return session;
+    }
+
     @Override
     public String getName() {
-        return null;
+        return session.getUser().getFirstName();
     }
 }

@@ -1,8 +1,9 @@
-package alexa.com.onlineshop.filter;
+package alexa.com.onlineshop.servlet.security;
 
 import alexa.com.onlineshop.ServiceLocator;
-import alexa.com.onlineshop.service.impl.DefaultSecurityService;
-import alexa.com.onlineshop.service.UserService;
+import alexa.com.onlineshop.entity.Session;
+import alexa.com.onlineshop.service.SecurityService;
+import alexa.com.onlineshop.entity.AuthRequestWrapper;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -13,8 +14,7 @@ import java.io.IOException;
 
 @WebFilter(urlPatterns = "/*")
 public class UserFilter  implements Filter {
-    private UserService userService = ServiceLocator.get(UserService.class);
-    private DefaultSecurityService sessionService = ServiceLocator.get(DefaultSecurityService.class);
+    private SecurityService securityService = ServiceLocator.get(SecurityService.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {}
@@ -30,7 +30,8 @@ public class UserFilter  implements Filter {
 
         if (requestURI.equals("/login") ||
                 requestURI.equals("/registration") ||
-                requestURI.startsWith("/assets/")) {
+                requestURI.startsWith("/assets/")
+                || (requestURI.equals("/logout"))) {
             chain.doFilter(request, response);
         } else {
             Cookie[] cookies = httpServletRequest.getCookies();
@@ -42,10 +43,11 @@ public class UserFilter  implements Filter {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("user-token")) {
                     String token = cookie.getValue();
-                    // TODO Session session = sessionService.getSessionByToken(getSessionByToken)
-                    if (sessionService.isValid(token)) {
-                        // TODO: AuthRequestWrapper authRequestWrapper = new AuthRequestWrapper(httpServletRequest , session);
-                        chain.doFilter(request, response);
+                    Session session = securityService.getSessionByToken(token);
+
+                    if (session != null) {
+                        AuthRequestWrapper authRequestWrapper = new AuthRequestWrapper(httpServletRequest, session);
+                        chain.doFilter(authRequestWrapper, response);
                         return;
                     }
                 }

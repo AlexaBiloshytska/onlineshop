@@ -1,7 +1,9 @@
 package alexa.com.onlineshop.entity;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Session {
@@ -9,7 +11,6 @@ public class Session {
     private User user;
     private List<Product> cart = new ArrayList<>();
     private LocalDateTime expireDate;
-    private double maxAge;
 
     public Session(String token, User user, LocalDateTime expireDate) {
         this.token = token;
@@ -33,12 +34,12 @@ public class Session {
         this.user = user;
     }
 
-    public List<Product> getCart() {
-        return cart;
+    public void addProductToCard(Product product) {
+        cart.add(product);
     }
 
-    public void setCart(List<Product> cart) {
-        this.cart = cart;
+    public List<Product> getCart() {
+        return new ArrayList<>(cart);//Copy constructor pattern
     }
 
     public LocalDateTime getExpireDate() {

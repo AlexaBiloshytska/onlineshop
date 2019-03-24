@@ -3,6 +3,7 @@ package alexa.com.onlineshop.servlet.security;
 import alexa.com.onlineshop.ServiceLocator;
 import alexa.com.onlineshop.entity.Session;
 import alexa.com.onlineshop.entity.User;
+import alexa.com.onlineshop.service.SecurityService;
 import alexa.com.onlineshop.service.UserService;
 import alexa.com.onlineshop.service.impl.DefaultSecurityService;
 import alexa.com.onlineshop.templater.TemplateProcessor;
@@ -22,9 +23,9 @@ import java.util.UUID;
 
 @WebServlet(urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
-    private static final int MAX_SESSION_AGE_SEC = 60; // TODO: create property file in resource folder
+    private static final int MAX_SESSION_AGE_SEC = 6000; // TODO: create property file in resource folder
     private UserService userService = ServiceLocator.get(UserService.class);
-    private DefaultSecurityService sessionService = ServiceLocator.get(DefaultSecurityService.class); // Use interface instead
+    private SecurityService sessionService = ServiceLocator.get(SecurityService.class); // Use interface instead
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -37,37 +38,34 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        // TODO: get user by email + pwd from DAO. Instead of isValid make m
         User user = userService.getUserByEmail(email);
         if (user != null) {
-            String useHash = user.getHash();
+            String userHash = user.getHash();
             String salt = user.getSalt();
             String original = salt+email+password;
             String requestHash =  DigestUtils.sha256Hex(original);
 
-            if (useHash.equals(requestHash)){
+            if (userHash.equals(requestHash)){
                 Session session = sessionService.getSession(user);
 
                 String token;
-                if (session != null) {
+                if (session != null) { // If session exist
                     token = session.getToken();
                     session.setExpireDate(LocalDateTime.now().plusSeconds(MAX_SESSION_AGE_SEC));
-                    // TODO: sessionService create session with user (done)
-                } else {
+                } else { // If no active session create new
                     token = UUID.randomUUID().toString();
-                    LocalDateTime localDateTime = LocalDateTime.now().plusHours(2);
+                    LocalDateTime localDateTime = LocalDateTime.now().plusSeconds(MAX_SESSION_AGE_SEC);
                     sessionService.save(new Session(token, user, localDateTime));
                 }
 
                 Cookie cookie = new Cookie("user-token", token);
                 cookie.setMaxAge(MAX_SESSION_AGE_SEC);
-                sessionService.addToken(token);
 
                 response.addCookie(cookie);
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.sendRedirect("/products");
 
-            }else {
+            } else {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.sendRedirect("/login");
             }

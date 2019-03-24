@@ -109,7 +109,7 @@
                                     <p class="btn btn-danger btn-block" th:text="${product.price}"> </p>
                                 </div>
                                 <div class="col">
-                                    <form action="/cart" method="post" class="add-to-cart btn btn-default">
+                                    <form action="/cart/add" method="post" class="add-to-cart btn btn-default">
                                         <input type="hidden" name="id" th:value="${product.id}">
                                         <button class="btn btn-success btn-block" type="submit">add to cart</button>
                                     </form>

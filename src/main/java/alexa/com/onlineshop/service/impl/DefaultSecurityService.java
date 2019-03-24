@@ -8,27 +8,18 @@ import alexa.com.onlineshop.service.UserService;
 import java.util.*;
 
 public class DefaultSecurityService implements SecurityService {
-    public List<Session> sessions = new ArrayList<>();
-    private UserService userService;
-    private Set<String> TOKENS = new HashSet<>();
-    int maxAgeSeconds;
+    private List<Session> sessions = new ArrayList<>();
+    private int maxAgeSeconds;
 
-    public DefaultSecurityService(UserService userService) {
-        this.userService = userService;
+    public Session getSessionByToken(String token) {
+        for ( Session session :sessions ){
+            if (session.getToken().equals(token)){
+                return session;
+            }
+
+        }
+        return null;
     }
-
-    public void addToken(String token) {
-        TOKENS.add(token);
-    }
-
-    public boolean isValid(String token) {
-        return TOKENS.contains(token);
-    }
-
-//    public Session getSessionByToken(String token) {
-//        return new Session();
-//
-//    }
 
     public Session getSession(String token) {
         for (Session session : sessions) {
@@ -71,20 +62,5 @@ public class DefaultSecurityService implements SecurityService {
         return null;
     }
 
-    public Session auth(String email,String password){
-        User user = userService.auth(email, password);
-
-        int hash = (email + password + user.getSalt()).hashCode();
-
-//        if (hash == user.getHash()) {
-//            String token = UUID.randomUUID().toString();
-//            LocalDateTime expiryDate = LocalDateTime.now().plusMinutes(60);
-//
-//            Session session = new Session(token, user, expiryDate);
-//            sessionList.add(session);
-//            return session;
-//        }
-        return null;
-    }
 
 }

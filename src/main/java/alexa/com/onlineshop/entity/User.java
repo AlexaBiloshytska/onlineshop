@@ -1,6 +1,7 @@
 package alexa.com.onlineshop.entity;
 
 import javax.management.relation.Role;
+import java.util.Objects;
 
 public class User {
     private Integer id;
@@ -72,12 +73,24 @@ public class User {
     }
 
 
-    public Role getRole() {
-        return role;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id.equals(user.id) &&
+                firstName.equals(user.firstName) &&
+                lastName.equals(user.lastName) &&
+                email.equals(user.email) &&
+                Objects.equals(role, user.role) &&
+                salt.equals(user.salt) &&
+                hash.equals(user.hash);
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, role, salt, hash);
     }
 
     @Override
