@@ -12,17 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcProductDao  implements ProductDao {
-    private static final ProductMapper  PRODUCT_MAPPER = new ProductMapper();
-    public static final String GET_ALL_SQL ="select id," +
+    private static final ProductMapper PRODUCT_MAPPER = new ProductMapper();
+    public static final String GET_ALL_SQL = "select id," +
             "product_name," +
-            "product_type," +
+            "brand," +
             "description," +
             "stock," +
             "price," +
             " image_source from product";
-    public static final String ADD_PRODUCT_SQL="insert into products (product_id," +
+    public static final String ADD_PRODUCT_SQL = "insert into products (product_id," +
             "product_name," +
-            "product_type," +
+            "brand," +
             "description," +
             "stock,price," +
             " image_source)values (?,?,?,?,?,?,?)";
@@ -31,7 +31,9 @@ public class JdbcProductDao  implements ProductDao {
             "select * from product where id = ?";
 
     public static final String SEARCH_PRODUCT_SQL =
-            "select * from product where product_name like ?" ;
+            "select * from product where product_name like ?";
+
+    public static final String DELETE_PRODUCT_SQL ="delete from product where id = ?";
 
     private Connection connection;
     private DataSource dataSource;
@@ -39,13 +41,15 @@ public class JdbcProductDao  implements ProductDao {
     public JdbcProductDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
     private static final Logger LOG = LoggerFactory.getLogger(JdbcProductDao.class);
+
     @Override
     public List<Product> getAll() {
         List<Product> products = new ArrayList<>();
 
         try (Statement statement = dataSource.getConnection().createStatement();
-             ResultSet resultSet = statement.executeQuery(GET_ALL_SQL);){
+             ResultSet resultSet = statement.executeQuery(GET_ALL_SQL);) {
             while (resultSet.next()) {
                 Product product = PRODUCT_MAPPER.mapRow(resultSet);
                 products.add(product);
@@ -62,16 +66,16 @@ public class JdbcProductDao  implements ProductDao {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_PRODUCT_SQL);) {
 
-            preparedStatement.setInt(1,product.getId());
-            preparedStatement.setString(2,product.getProductName());
-            preparedStatement.setString(3,product.getProductType());
-            preparedStatement.setString(4,product.getDescription());
-            preparedStatement.setInt(5,product.getStock());
-            preparedStatement.setInt(6,product.getPrice());
-            preparedStatement.setString(7,product.getImageSource());
+            preparedStatement.setInt(1, product.getId());
+            preparedStatement.setString(2, product.getProductName());
+            preparedStatement.setString(3, product.getProductBrand());
+            preparedStatement.setString(4, product.getDescription());
+            preparedStatement.setInt(5, product.getStock());
+            preparedStatement.setInt(6, product.getPrice());
+            preparedStatement.setString(7, product.getImageSource());
             connection.commit();
 
-            System.out.println("Data is successfully inserted: "+ product);
+            System.out.println("Data is successfully inserted: " + product);
 
         } catch (Exception e) {
             System.out.println("Unable to insert product" + product);
@@ -80,9 +84,23 @@ public class JdbcProductDao  implements ProductDao {
     }
 
     @Override
-    public Product getById(int id){
-        try(Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_ID_SQL)){
+    public void delete(int id) {
+
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT_SQL);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    @Override
+    public Product getById(int id) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_ID_SQL)) {
 
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -101,8 +119,8 @@ public class JdbcProductDao  implements ProductDao {
 
     @Override
     public List<Product> searchByName(String name) {
-        try(Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_PRODUCT_SQL);){
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_PRODUCT_SQL);) {
 
             preparedStatement.setString(1, "%" + name + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -118,4 +136,5 @@ public class JdbcProductDao  implements ProductDao {
             throw new RuntimeException("Unable to get product", e);
         }
     }
+
 }

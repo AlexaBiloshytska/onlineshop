@@ -59,3 +59,8 @@ footer {
 footer a {
     color: #f8f9fa!important
 }
+.salutation {
+    padding-left: 20px;
+    margin: auto;
+    color: white;
+}

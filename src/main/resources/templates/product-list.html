@@ -31,15 +31,14 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="category.html">Products <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="product.html">Product</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cart.html">Cart</a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="contact.html">Contact</a>
                 </li>
+                <li th:if="${user.role.toString() == 'ADMIN'}" class="nav-item">
+                    <a class="nav-link" href="/admin/products">Admin</a>
+                </li>
+
             </ul>
 
             <!--Basket-->
@@ -52,10 +51,18 @@
                         </button>
                     </div>
                 </div>
+                <div >
+                    <p class="salutation" th:text="${'Welcome, ' + user.firstName}"></p>
+                </div>
                 <a class="btn btn-success btn-sm ml-3" href="/cart">
                     <i class="fa fa-shopping-cart"></i> Cart
-                    <span class="badge badge-light">3</span>
+                    <span th:text= "${cardSize}" class="badge badge-light"></span>
                 </a>
+            </form>
+            <form method="get" action="/logout" class="form-inline my-2 my-lg-0">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Log out</button>
+                </div>
             </form>
         </div>
     </div>

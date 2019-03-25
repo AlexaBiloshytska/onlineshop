@@ -1,6 +1,9 @@
 package alexa.com.onlineshop.servlet.view;
 
+import alexa.com.onlineshop.entity.AuthPrincipal;
 import alexa.com.onlineshop.entity.Product;
+import alexa.com.onlineshop.entity.Session;
+import alexa.com.onlineshop.entity.User;
 import alexa.com.onlineshop.service.ProductService;
 import alexa.com.onlineshop.templater.TemplateProcessor;
 import alexa.com.onlineshop.ServiceLocator;
@@ -29,6 +32,9 @@ public class ProductListServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("[info] getting all products");
+        Session session = ((AuthPrincipal) request.getUserPrincipal()).getSession();
+        User user = session.getUser();
+        List<Product> cart = session.getCart();
 
         String productName = request.getParameter("productName");
 
@@ -41,6 +47,9 @@ public class ProductListServlet extends HttpServlet {
 
         Map<String, Object> pageVariables = new HashMap<>();
         pageVariables.put("products", products);
+        pageVariables.put("user", user);
+        pageVariables.put("cardSize", cart.size());
+
 
         IContext context = new Context(Locale.getDefault(), pageVariables);
 
@@ -59,7 +68,7 @@ public class ProductListServlet extends HttpServlet {
 
             Integer id = Integer.parseInt(request.getParameter("productId"));
             String productName = request.getParameter("productName");
-            String productType = request.getParameter("productType");
+            String productBrand = request.getParameter("productBrand");
             String description = request.getParameter("productDescription");
             Integer stock = Integer.parseInt(request.getParameter("productStock"));
             Integer price = Integer.parseInt(request.getParameter("productPrice"));
@@ -67,7 +76,7 @@ public class ProductListServlet extends HttpServlet {
             Product product = new Product();
             product.setId(id);
             product.setProductName(productName);
-            product.setProductType(productType);
+            product.setProductBrand(productBrand);
             product.setDescription(description);
             product.setStock(stock);
             product.setPrice(price);

@@ -9,7 +9,7 @@ public class ProductMapper {
     public Product mapRow(ResultSet resultSet) throws SQLException {
         Integer id = resultSet.getInt("id");
         String productName = resultSet.getString("product_name");
-        String type = resultSet.getString("product_type");
+        String brand = resultSet.getString("brand");
         String description = resultSet.getString("description");
         Integer stock = resultSet.getInt("stock");
         Integer price = resultSet.getInt("price");
@@ -18,7 +18,7 @@ public class ProductMapper {
         Product product = new Product();
         product.setId(id);
         product.setProductName(productName);
-        product.setProductType(type);
+        product.setProductBrand(brand);
         product.setDescription(description);
         product.setStock(stock);
         product.setPrice(price);

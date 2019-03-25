@@ -1,6 +1,5 @@
 package alexa.com.onlineshop.entity;
 
-import javax.management.relation.Role;
 import java.util.Objects;
 
 public class User {
@@ -15,13 +14,14 @@ public class User {
     public User() {
     }
 
-    public User(Integer id, String firstName, String lastName, String emai) {
+    public User(Integer id, String firstName, String lastName, String email, Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.hash = hash;
         this.salt = salt;
+        this.role = role;
     }
 
     public String getSalt() {
@@ -30,6 +30,14 @@ public class User {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getHash() {
@@ -73,7 +81,6 @@ public class User {
     }
 
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,7 +90,7 @@ public class User {
                 firstName.equals(user.firstName) &&
                 lastName.equals(user.lastName) &&
                 email.equals(user.email) &&
-                Objects.equals(role, user.role) &&
+                role == user.role &&
                 salt.equals(user.salt) &&
                 hash.equals(user.hash);
     }

@@ -15,7 +15,7 @@ public class JdbcUserDao implements UserDao {
     private static final String GET_ALL_SQL = "SELECT id, first_name,last_name email,  FROM USERS ";
     private static final String ADD_USER_SQL = "INSERT INTO USERS(first_name, last_name, email, hash, salt) VALUES (?,?,?,?,?)";
     private static final String GET_USER_SQL = "SELECT * FROM USERS WHERE email = ? ";
-    private static final String GET_USER_BY_EMAIL = "SELECT id,first_name, last_name, email, salt, hash from USERS where email=?";
+    private static final String GET_USER_BY_EMAIL = "SELECT id,first_name, last_name, email, salt, hash, role from USERS where email=?";
 
     private DataSource dataSource;
 

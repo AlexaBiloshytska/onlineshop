@@ -1,9 +1,18 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin page</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Web 1</title>
+    <title>Admin page</title>
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -43,24 +52,19 @@
             </ul>
 
             <!--Basket-->
-            <form class="form-inline my-2 my-lg-0">
+            <form method="get" class="form-inline my-2 my-lg-0">
                 <div class="input-group input-group-sm">
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
+                    <input type="text" name="productName" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-secondary btn-number">
+                        <button type="submit" class="btn btn-secondary btn-number">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
                 </div>
-                <a class="btn btn-success btn-sm ml-3" href="product-list.html">
+                <a class="btn btn-success btn-sm ml-3" href="/cart">
                     <i class="fa fa-shopping-cart"></i> Cart
-                    <span class="badge badge-light">3</span>
+                    <span class="badge badge-light">1</span>
                 </a>
-            </form>
-            <form method="get" action="/logout" class="form-inline my-2 my-lg-0">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-sm">Log out</button>
-                </div>
             </form>
         </div>
     </div>
@@ -100,35 +104,33 @@
         <!--Content container-->
         <div class="col">
             <div class="row">
-                <div class="card">
-                    <div class="container-fliud">
-
-                        <div class="wrapper row">
-
-                            <!--picture-->
-                            <div class="preview col-md-6">
-                                <img class="img-fluid" img th:src="${{product.imageSource}}" alt="img"/>
-                            </div>
-
-                            <!--Details-->
-                            <div class="details col-md-6">
-                                <h3 class="product-title"th:text="${{product.productName}}"></h3>
-                                <p class="product-description"th:text="${{product.description}}"></p>
-                                <h4 class="price">Price: <span th:text="${{product.price}}"></span></h4>
-                                <div class="action">
-                                    <form action="/cart" method="post" class="add-to-cart btn btn-default">
+                <!--Product List-->
+                <div class="col-12 col-md-6 col-lg-4" th:each="product: ${products}">
+                    <div class="card">
+                        <a th:href="@{'products/'+${product.id}}">
+                            <img class="img-fluid" th:src="${product.imageSource}" alt="img"/>
+                        </a>
+                        <div class="card-body">
+                            <h4 class="card-title"><a href="product.html" title="View Product" th:text="${product.productName}"></a></h4>
+                            <p class="card-text" th:text="${product.description}"></p>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="btn btn-danger btn-block" th:text="${product.price}"> </p>
+                                </div>
+                                <div class="col">
+                                    <form action="/cart/add" method="post" class="add-to-cart btn btn-default">
                                         <input type="hidden" name="id" th:value="${product.id}">
                                         <button class="btn btn-success btn-block" type="submit">add to cart</button>
                                     </form>
+                                    <form action="/product/delete" method="post" class="add-to-cart btn btn-default">
+                                        <input type="hidden" name="id" th:value="${product.id}">
+                                        <button class="btn btn-success btn-block" type="submit">delete product</button>
+                                    </form>
                                 </div>
                             </div>
-                            <!--End of details-->
-
                         </div>
-
                     </div>
                 </div>
-                <!--Product List-->
                 <!-- End Product List -->
             </div>
         </div>
@@ -176,12 +178,13 @@
                 <h5>Contact</h5>
                 <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
                 <ul class="list-unstyled">
-                    <li><i class="fa fa-home mr-2"></i> My company</li>
-                    <li><i class="fa fa-envelope mr-2"></i> email@example.com</li>
-                    <li><i class="fa fa-phone mr-2"></i> + 33 12 14 15 16</li>
-                    <li><i class="fa fa-print mr-2"></i> + 33 12 14 15 16</li>
+                    <li><i class="fa fa-home mr-2"></i> Alexa Online-Shop</li>
+                    <li><i class="fa fa-envelope mr-2"></i> online-shop@gmail.com</li>
+                    <li><i class="fa fa-phone mr-2"></i> + 044 312 07 19 </li>
+                    <li><i class="fa fa-print mr-2"></i> + 044 312 07 19 </li>
                 </ul>
             </div>
+
         </div>
     </div>
 </footer>

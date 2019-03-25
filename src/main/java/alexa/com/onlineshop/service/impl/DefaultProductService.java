@@ -33,4 +33,9 @@ public class DefaultProductService implements ProductService {
     public List<Product> search(String name) {
         return productDao.searchByName(name);
     }
+
+    @Override
+    public void delete(int id) {
+         productDao.delete(id);
+    }
 }

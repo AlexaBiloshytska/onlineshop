@@ -1,5 +1,6 @@
 package alexa.com.onlineshop.dao.mapper;
 
+import alexa.com.onlineshop.entity.Role;
 import alexa.com.onlineshop.entity.User;
 
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ public class UserMapper {
         String email = resultSet.getString("email");
         String salt = resultSet.getString("salt");
         String hash = resultSet.getString("hash");
+        Role role = Role.valueOf(resultSet.getString("role")) ;
         // fill list
         User user = new User();
         user.setId(id);
@@ -23,6 +25,7 @@ public class UserMapper {
         user.setEmail(email);
         user.setSalt(salt);
         user.setHash(hash);
+        user.setRole(role);
         return user;
     }
 

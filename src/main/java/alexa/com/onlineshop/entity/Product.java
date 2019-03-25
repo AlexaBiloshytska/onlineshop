@@ -3,7 +3,7 @@ package alexa.com.onlineshop.entity;
 public class Product {
     private Integer id;
     private String productName;
-    private String productType;
+    private String productBrand;
     private String description;
     private Integer stock;
     private Integer price;
@@ -22,16 +22,16 @@ public class Product {
         return productName;
     }
 
-    public String getProductType() {
-        return productType;
+    public String getProductBrand() {
+        return productBrand;
     }
 
     public void setProductName(String productName) {
         this.productName = productName;
     }
 
-    public void setProductType(String productType) {
-        this.productType = productType;
+    public void setProductBrand(String productBrand) {
+        this.productBrand = productBrand;
     }
 
     public String getDescription() {
@@ -71,7 +71,7 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", productname='" + productName + '\'' +
-                ", producttype='" + productType + '\'' +
+                ", productBrand='" + productBrand + '\'' +
                 ", description='" + description + '\'' +
                 ", stock=" + stock +
                 ", price=" + price +
