@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Web 1</title>
+    <title>Online-shop</title>
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -88,12 +88,9 @@
         <div class="col-12 col-sm-3">
             <div class="card bg-light mb-3">
                 <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
-                <ul class="list-group category_block">
-                    <li class="list-group-item"><a href="category.html">Cras justo odio</a></li>
-                    <li class="list-group-item"><a href="category.html">Dapibus ac facilisis in</a></li>
-                    <li class="list-group-item"><a href="category.html">Morbi leo risus</a></li>
-                    <li class="list-group-item"><a href="category.html">Porta ac consectetur ac</a></li>
-                    <li class="list-group-item"><a href="category.html">Vestibulum at eros</a></li>
+                <ul th:each="category: ${categories}" class="list-group category_block">
+                    <!--<li class="list-group-item"><a href="category.html">Categories</a></li>-->
+                    <li class="list-group-item"><a th:text= "${category.name}" th:href="@{'products?category='+${category.id}}">Categories</a></li>
                 </ul>
             </div>
         </div>
@@ -113,7 +110,7 @@
                             <p class="card-text" th:text="${product.description}"></p>
                             <div class="row">
                                 <div class="col">
-                                    <p class="btn btn-danger btn-block" th:text="${product.price}"> </p>
+                                    <p class="btn btn-danger btn-block" th:text="${product.price +'$'}">  </p>
                                 </div>
                                 <div class="col">
                                     <form action="/cart/add" method="post" class="add-to-cart btn btn-default">

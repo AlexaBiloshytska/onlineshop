@@ -34,7 +34,7 @@ public class JdbcProductDao  implements ProductDao {
             "select * from product where product_name like ?";
 
     public static final String DELETE_PRODUCT_SQL ="delete from product where id = ?";
-
+    public static final String GET_PRODUCT_BY_CATEGORY ="select * from product p join categories c on p.category_id  = c.id where c.id=?";
     private Connection connection;
     private DataSource dataSource;
 
@@ -93,6 +93,28 @@ public class JdbcProductDao  implements ProductDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public List<Product> getByCategory(int id) {
+        List<Product> products = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCT_BY_CATEGORY)) {
+
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Product product = PRODUCT_MAPPER.mapRow(resultSet);
+                products.add(product);
+            }
+            return products;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Unable to get product with categoryId = "+id, e );
+        }
+
 
     }
 

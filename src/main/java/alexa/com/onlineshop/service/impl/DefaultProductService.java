@@ -38,4 +38,9 @@ public class DefaultProductService implements ProductService {
     public void delete(int id) {
          productDao.delete(id);
     }
+
+    @Override
+    public List<Product> getByCategory(int id) {
+        return productDao.getByCategory(id);
+    }
 }

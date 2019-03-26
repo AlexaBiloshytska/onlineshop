@@ -10,5 +10,6 @@ public interface ProductService {
     Product getById(int id);
     List <Product> search(String name);
     void delete(int id);
+    List <Product> getByCategory(int id);
 
 }

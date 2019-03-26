@@ -1,9 +1,12 @@
 package alexa.com.onlineshop;
 
+import alexa.com.onlineshop.dao.CategoryDao;
 import alexa.com.onlineshop.dao.ProductDao;
 import alexa.com.onlineshop.dao.UserDao;
 import alexa.com.onlineshop.dao.jdbc.*;
+import alexa.com.onlineshop.service.CategoryService;
 import alexa.com.onlineshop.service.SecurityService;
+import alexa.com.onlineshop.service.impl.DefaultCategoryService;
 import alexa.com.onlineshop.service.impl.DefaultProductService;
 import alexa.com.onlineshop.service.impl.DefaultSecurityService;
 import alexa.com.onlineshop.service.impl.DefaultUserService;
@@ -38,6 +41,7 @@ public class ServiceLocator {
 
         UserDao userDao = new JdbcUserDao(source);
         ProductDao productDao = new JdbcProductDao(source);
+        CategoryDao categoryDao = new JdbcCategoryDao(source);
 
         // config services
         UserService userService = new DefaultUserService(userDao);
@@ -45,6 +49,9 @@ public class ServiceLocator {
 
         ProductService productService = new DefaultProductService(productDao);
         map.put(ProductService.class,productService);
+
+        CategoryService categoryService = new DefaultCategoryService(categoryDao);
+        map.put(CategoryService.class,categoryService);
 
         // Add sessionService
         SecurityService sessionService = new DefaultSecurityService();

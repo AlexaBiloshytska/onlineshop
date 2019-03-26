@@ -11,6 +11,7 @@ public class Session {
     private User user;
     private List<Product> cart = new ArrayList<>();
     private LocalDateTime expireDate;
+    private List<Category> categories = new ArrayList<>();
 
     public Session(String token, User user, LocalDateTime expireDate) {
         this.token = token;
@@ -41,6 +42,7 @@ public class Session {
     public List<Product> getCart() {
         return new ArrayList<>(cart);//Copy constructor pattern
     }
+
 
     public LocalDateTime getExpireDate() {
         return expireDate;

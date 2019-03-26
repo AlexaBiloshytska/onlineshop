@@ -1,9 +1,7 @@
 package alexa.com.onlineshop.servlet.view;
 
-import alexa.com.onlineshop.entity.AuthPrincipal;
-import alexa.com.onlineshop.entity.Product;
-import alexa.com.onlineshop.entity.Session;
-import alexa.com.onlineshop.entity.User;
+import alexa.com.onlineshop.entity.*;
+import alexa.com.onlineshop.service.CategoryService;
 import alexa.com.onlineshop.service.ProductService;
 import alexa.com.onlineshop.templater.TemplateProcessor;
 import alexa.com.onlineshop.ServiceLocator;
@@ -27,6 +25,7 @@ import java.util.Map;
 public class ProductListServlet extends HttpServlet {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private ProductService productService = ServiceLocator.get(ProductService.class);
+    private CategoryService categoryService = ServiceLocator.get(CategoryService.class);
     private String requestedPage ="product-list.html";
 
 
@@ -36,19 +35,29 @@ public class ProductListServlet extends HttpServlet {
         User user = session.getUser();
         List<Product> cart = session.getCart();
 
-        String productName = request.getParameter("productName");
-
         List<Product> products;
-        if (productName != null){
+        String productName = request.getParameter("productName");
+        String queryString = request.getQueryString();
+
+        if (productName != null) {
             products = productService.search(productName);
+        } else if (queryString != null){
+            Map<String, String> queryMap = getQueryMap(queryString);
+            String categoryId = queryMap.get("category");
+
+            Integer id = Integer.parseInt(categoryId);
+            products = productService.getByCategory(id);
         } else {
             products = productService.getAll();
         }
+
+        List<Category> categories = categoryService.getAll();
 
         Map<String, Object> pageVariables = new HashMap<>();
         pageVariables.put("products", products);
         pageVariables.put("user", user);
         pageVariables.put("cardSize", cart.size());
+        pageVariables.put("categories", categories);
 
 
         IContext context = new Context(Locale.getDefault(), pageVariables);
@@ -86,5 +95,17 @@ public class ProductListServlet extends HttpServlet {
         } catch (Exception e){
             throw new RuntimeException(e);
         }
+    }
+
+    private Map<String, String> getQueryMap(String query) {
+        String[] params = query.split("&");
+        Map<String, String> map = new HashMap<String, String>();
+        for (String param : params)
+        {
+            String name = param.split("=")[0];
+            String value = param.split("=")[1];
+            map.put(name, value);
+        }
+        return map;
     }
 }
