@@ -1,10 +1,8 @@
 package alexa.com.onlineshop.servlet.view;
 
 import alexa.com.onlineshop.ServiceLocator;
-import alexa.com.onlineshop.entity.AuthPrincipal;
-import alexa.com.onlineshop.entity.Product;
-import alexa.com.onlineshop.entity.Session;
-import alexa.com.onlineshop.entity.User;
+import alexa.com.onlineshop.entity.*;
+import alexa.com.onlineshop.service.CategoryService;
 import alexa.com.onlineshop.service.ProductService;
 import alexa.com.onlineshop.templater.TemplateProcessor;
 import org.thymeleaf.TemplateEngine;
@@ -28,6 +26,7 @@ import static alexa.com.onlineshop.entity.Role.ADMIN;
 @WebServlet(urlPatterns = "/admin/products")
 public class AdminServlet extends HttpServlet {
     private ProductService productService = ServiceLocator.get(ProductService.class);
+    private CategoryService categoryService = ServiceLocator.get(CategoryService.class);
     private String requestedPage ="admin.html";
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -37,11 +36,17 @@ public class AdminServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
-
+        List<Category> categories = categoryService.getAll();
         List<Product> products = productService.getAll();
-        TemplateEngine config = TemplateProcessor.process();
+        List<Product> cart = session.getCart();
+
         Map<String, Object> pageVariables = new HashMap<>();
         pageVariables.put("products", products);
+        pageVariables.put("categories", categories);
+        pageVariables.put("user", user);
+        pageVariables.put("cardSize", cart.size());
+
+        TemplateEngine config = TemplateProcessor.process();
         IContext context = new Context(Locale.getDefault(), pageVariables);
         config.process(requestedPage, context, response.getWriter());
 

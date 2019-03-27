@@ -7,6 +7,8 @@ import alexa.com.onlineshop.entity.User;
 import alexa.com.onlineshop.service.ProductService;
 import alexa.com.onlineshop.templater.TemplateProcessor;
 import alexa.com.onlineshop.ServiceLocator;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,13 +25,19 @@ public class AddProductServlet extends HttpServlet {
     private ProductService productService = ServiceLocator.get(ProductService.class);
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        TemplateEngine engine = TemplateProcessor.process();
+        engine.process("addProduct", new Context(), response.getWriter());
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Session session = ((AuthPrincipal) request.getUserPrincipal()).getSession();
         User user = session.getUser();
         if (user.getRole().equals(ADMIN)){
             Integer id = Integer.parseInt(request.getParameter("productId"));
             String productName = request.getParameter("productName");
-            String productType = request.getParameter("productType");
+            String productBrand = request.getParameter("productBrand");
             String description = request.getParameter("productDescription");
             Integer stock = Integer.parseInt(request.getParameter("productStock"));
             Integer price = Integer.parseInt(request.getParameter("productPrice"));
@@ -38,7 +46,7 @@ public class AddProductServlet extends HttpServlet {
             Product product = new Product();
             product.setId(id);
             product.setProductName(productName);
-            product.setProductBrand(productType);
+            product.setProductBrand(productBrand);
             product.setDescription(description);
             product.setStock(stock);
             product.setPrice(price);

@@ -1,13 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Add product</title>
 </head>
 <body>
+<!--Navigation-->
+<!--<nav th:replace="fragments.html :: navigation"></nav>-->
+<!--End navigation-->
 <form action="/products/add" method="POST">
     <input type="text" name="productName">
+    <input type="text" name="productBrand">
+    <input type="text" name="description">
+    <input type="number" name="stock">
+    <input type="number" name="price">
+    <input type="text" name="image">
+
     <button type="submit"> Add product</button>
+
+    <!--Footer-->
+    <!--<footer th:replace="fragments.html :: footer"></footer>-->
+    <!--End footer-->
+
 </form>
 </body>
 </html>

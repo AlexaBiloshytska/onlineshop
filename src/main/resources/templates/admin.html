@@ -1,15 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin page</title>
-</head>
-<body>
-
-</body>
-</html><!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Admin page</title>
@@ -23,55 +13,11 @@
 <body>
 
 <!--Navigation-->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container">
-        <!---->
-        <a class="navbar-brand" href="index.html">Online shop </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!--List -->
-        <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
-            <ul class="navbar-nav m-auto">
-                <li class="nav-item ">
-                    <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="category.html">Products <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="product.html">Product</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cart.html">Cart</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                </li>
-            </ul>
-
-            <!--Basket-->
-            <form method="get" class="form-inline my-2 my-lg-0">
-                <div class="input-group input-group-sm">
-                    <input type="text" name="productName" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-secondary btn-number">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-                <a class="btn btn-success btn-sm ml-3" href="/cart">
-                    <i class="fa fa-shopping-cart"></i> Cart
-                    <span class="badge badge-light">1</span>
-                </a>
-            </form>
-        </div>
-    </div>
-</nav>
+<nav th:replace="/fragments.html :: navigation"></nav>
 <!--End navigation-->
 
 <main class="container">
+
     <!--Breadcrumbs-->
     <div class="row">
         <nav aria-label="breadcrumb">
@@ -90,16 +36,12 @@
         <div class="col-12 col-sm-3">
             <div class="card bg-light mb-3">
                 <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
-                <ul class="list-group category_block">
-                    <li class="list-group-item"><a href="category.html">Cras justo odio</a></li>
-                    <li class="list-group-item"><a href="category.html">Dapibus ac facilisis in</a></li>
-                    <li class="list-group-item"><a href="category.html">Morbi leo risus</a></li>
-                    <li class="list-group-item"><a href="category.html">Porta ac consectetur ac</a></li>
-                    <li class="list-group-item"><a href="category.html">Vestibulum at eros</a></li>
+                <ul th:each="category: ${categories}" class="list-group category_block">
+                    <!--<li class="list-group-item"><a href="category.html">Categories</a></li>-->
+                    <li class="list-group-item"><a th:text= "${category.name}" th:href="@{'products?category='+${category.id}}">Categories</a></li>
                 </ul>
             </div>
         </div>
-
 
         <!--Content container-->
         <div class="col">
@@ -122,6 +64,10 @@
                                         <input type="hidden" name="id" th:value="${product.id}">
                                         <button class="btn btn-success btn-block" type="submit">add to cart</button>
                                     </form>
+                                    <form action="/products/add" method="POST">
+                                        <input type="text" name="productName">
+                                        <button type="submit"> Add product</button>
+                                    </form>
                                     <form action="/product/delete" method="post" class="add-to-cart btn btn-default">
                                         <input type="hidden" name="id" th:value="${product.id}">
                                         <button class="btn btn-success btn-block" type="submit">delete product</button>
@@ -139,57 +85,9 @@
     <!--End content-->
 </main>
 
-<!-- Footer -->
-<footer class="text-light">
-    <!--Info-->
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-lg-4 col-xl-3">
-                <h5>About</h5>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
-                <p class="mb-0">
-                    Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.
-                </p>
-            </div>
+<!--Footer-->
+<footer th:replace="fragments.html :: footer"></footer>
+<!--End footer-->
 
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
-                <h5>Informations</h5>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
-                <ul class="list-unstyled">
-                    <li><a href="">Link 1</a></li>
-                    <li><a href="">Link 2</a></li>
-                    <li><a href="">Link 3</a></li>
-                    <li><a href="">Link 4</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
-                <h5>Others links</h5>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
-                <ul class="list-unstyled">
-                    <li><a href="">Link 1</a></li>
-                    <li><a href="">Link 2</a></li>
-                    <li><a href="">Link 3</a></li>
-                    <li><a href="">Link 4</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-4 col-lg-3 col-xl-3">
-                <h5>Contact</h5>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
-                <ul class="list-unstyled">
-                    <li><i class="fa fa-home mr-2"></i> Alexa Online-Shop</li>
-                    <li><i class="fa fa-envelope mr-2"></i> online-shop@gmail.com</li>
-                    <li><i class="fa fa-phone mr-2"></i> + 044 312 07 19 </li>
-                    <li><i class="fa fa-print mr-2"></i> + 044 312 07 19 </li>
-                </ul>
-            </div>
-
-        </div>
-    </div>
-</footer>
-
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 </html>

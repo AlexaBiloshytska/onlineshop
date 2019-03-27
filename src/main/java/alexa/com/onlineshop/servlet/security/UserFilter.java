@@ -4,6 +4,7 @@ import alexa.com.onlineshop.ServiceLocator;
 import alexa.com.onlineshop.entity.Session;
 import alexa.com.onlineshop.service.SecurityService;
 import alexa.com.onlineshop.entity.AuthRequestWrapper;
+import org.slf4j.MDC;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -46,6 +47,7 @@ public class UserFilter  implements Filter {
                     Session session = securityService.getSessionByToken(token);
 
                     if (session != null) {
+                        MDC.put("USER_KEY", session.getUser().getFirstName());
                         AuthRequestWrapper authRequestWrapper = new AuthRequestWrapper(httpServletRequest, session);
                         chain.doFilter(authRequestWrapper, response);
                         return;

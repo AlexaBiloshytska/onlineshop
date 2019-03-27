@@ -1,8 +1,7 @@
 package alexa.com.onlineshop.servlet.view;
 
 import alexa.com.onlineshop.ServiceLocator;
-import alexa.com.onlineshop.entity.Category;
-import alexa.com.onlineshop.entity.Product;
+import alexa.com.onlineshop.entity.*;
 import alexa.com.onlineshop.service.CategoryService;
 import alexa.com.onlineshop.service.ProductService;
 import alexa.com.onlineshop.templater.TemplateProcessor;
@@ -29,15 +28,23 @@ public class ProductServlet extends HttpServlet {
     private ProductService productService = ServiceLocator.get(ProductService.class);
     private String requestedPage = "product.html";
     private CategoryService categoryService = ServiceLocator.get(CategoryService.class);
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        Session session = ((AuthPrincipal) request.getUserPrincipal()).getSession();
+        User user = session.getUser();
+
+        List<Product> cart = session.getCart();
         String requestUrl = request.getPathInfo();
         String[] split = requestUrl.split("/");
         int productId = Integer.parseInt(split[1]);
 
         List<Category> categories = categoryService.getAll();
         Product product = productService.getById(productId);
+
         Map<String, Object> pageVariables = new HashMap<>();
+        pageVariables.put("user", user);
+        pageVariables.put("cardSize", cart.size());
         pageVariables.put("product", product);
         pageVariables.put("categories", categories);
 
