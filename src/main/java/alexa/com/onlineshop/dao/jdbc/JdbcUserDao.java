@@ -25,8 +25,9 @@ public class JdbcUserDao implements UserDao {
 
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
-        try (Statement statement = dataSource.getConnection().createStatement();
-             ResultSet resultSet = statement.executeQuery(GET_ALL_SQL);) {
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(GET_ALL_SQL)) {
             while (resultSet.next()) {
                 User user = USER_MAPPER.mapRow(resultSet);
                 users.add(user);
@@ -59,7 +60,8 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public boolean checkUserExistence(String email, String password) {
-        try (PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(GET_USER_SQL)){
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_SQL)){
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -71,7 +73,8 @@ public class JdbcUserDao implements UserDao {
         }
     }
     public User getUserByEmail(String email) {
-        try (PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(GET_USER_BY_EMAIL)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_EMAIL)) {
 
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();

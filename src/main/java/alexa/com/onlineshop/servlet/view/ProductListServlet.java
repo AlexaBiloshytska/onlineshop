@@ -31,6 +31,7 @@ public class ProductListServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         logger.info("[info] getting all products");
+        System.out.println("NOTED");
         Session session = ((AuthPrincipal) request.getUserPrincipal()).getSession();
         User user = session.getUser();
         List<Product> cart = session.getCart();
