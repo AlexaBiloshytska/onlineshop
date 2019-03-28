@@ -30,9 +30,11 @@ public class UserFilter  implements Filter {
         String requestURI = httpServletRequest.getRequestURI();
 
         if (requestURI.equals("/login") ||
+                requestURI.equals("/logout") ||
                 requestURI.equals("/registration") ||
-                requestURI.startsWith("/assets/")
-                || (requestURI.equals("/logout"))) {
+                requestURI.startsWith("/assets/") ||
+                requestURI.startsWith("/favicon.ico")
+                ){
             chain.doFilter(request, response);
         } else {
             Cookie[] cookies = httpServletRequest.getCookies();
@@ -47,7 +49,7 @@ public class UserFilter  implements Filter {
                     Session session = securityService.getSessionByToken(token);
 
                     if (session != null) {
-                        MDC.put("USER_KEY", session.getUser().getFirstName());
+//                        MDC.put("USER_KEY", session.getUser().getFirstName());
                         AuthRequestWrapper authRequestWrapper = new AuthRequestWrapper(httpServletRequest, session);
                         chain.doFilter(authRequestWrapper, response);
                         return;

@@ -6,6 +6,7 @@
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+IJP/OXgD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/4gk/+p2FeLOXgD/AAAAAAAAAAAAAAAAAAAAAP+IJP//iCT/zl4A/85eAP8AAAAAAAAAAAAAAAAAAAAAAAAAAP+IJP/qdhXizl4A/wAAAAAAAAAAAAAAAAAAAAD/iCT//4gk/85eAP/OXgD/AAAAAAAAAAAAAAAAAAAAAAAAAAD/iCT/6nYV4s5eAP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADnr4AjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO96GJ0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/iCT//4gk//+IJP//iCT//4gk//+IJP//iCT//4gk//+IJP//iCT//4gk/wAAAAAAAAAAAAAAAAAAAAAAAAAA/8SSbP/Ekmz/xJJs/8SSbP/Ekmz/xJJs/8SSbP/Ekmz/xJJs/8SSbP+IJP8AAAAAAAAAAAAAAAAAAAAAAAAAALzK/zB4lP+zeJT/s3iU/7N4lP+zVnn/s1Z5/7NWef+zVnn/s1Z5/7P/iCT//8SSRQAAAAAAAAAAAAAAAHiU//94lP//eJT//3iU//94lP//eJT//1Z5//9Wef//Vnn//1Z5//9Wef///4gk//+IJP8AAAAAAAAAAAAAAAB4lP//eJT//3iU//94lP//eJT//3iU//9Wef//Vnn//1Z5//9Wef//Vnn//+aGRd//iCT/AAAAAAAAAAAAAAAAeJT//3iU//94lP//eJT//3iU//94lP//Vnn//1Z5//9Wef//Vnn//1Z5//9Wef///4gk/wAAAAAAAAAAAAAAAHiU//94lP//eJT//3iU//94lP//eJT//1Z5//9Wef//Vnn//1Z5//9Wef//Vnn///+IJP8AAAAAAAAAALzK/yt4lP//eJT//3iU//94lP//eJT//3iU//9Wef//Vnn//1Z5//9Wef//Vnn//1Z5////iCT/AAAAAAAAAAB4lP//eJT//3iU//94lP//eJT//3iU//94lP//Vnn//1Z5//9Wef//Vnn//1Z5//9Wef///4gk///EkiMAAAAAeJT//3iU//94lP//eJT//3iU//94lP//eJT//1Z5//9Wef//Vnn//1Z5//9Wef//Vnn///+IJP//iCT/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/iCTi/4gk/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+IJP//iCT/z8cAAIfHAACHxwAA/+8AAMAHAAD/9wAA4AcAAIADAACAAwAAgAMAAIADAACAAwAAAAMAAAABAAD/+QAA//wAAA==" rel="icon" type="image/x-icon" />
 
     <link rel="stylesheet" type="text/css" href="../assets/css/main.css">
 </head>
@@ -21,10 +22,10 @@
     <!--Breadcrumbs-->
     <div class="row">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="category.html">Category</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Sub-category</li>
+            <ol  class="breadcrumb">
+                <li class="breadcrumb-item"><a href="product-list.html">Home</a></li>
+                <!--<li class="breadcrumb-item" th:text= "${categories.name}"></li>-->
+
             </ol>
         </nav>
     </div>
@@ -64,10 +65,7 @@
                                         <input type="hidden" name="id" th:value="${product.id}">
                                         <button class="btn btn-success btn-block" type="submit">add to cart</button>
                                     </form>
-                                    <form action="/products/add" method="POST">
-                                        <input type="text" name="productName">
-                                        <button type="submit"> Add product</button>
-                                    </form>
+
                                     <form action="/product/delete" method="post" class="add-to-cart btn btn-default">
                                         <input type="hidden" name="id" th:value="${product.id}">
                                         <button class="btn btn-success btn-block" type="submit">delete product</button>

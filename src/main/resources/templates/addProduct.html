@@ -1,27 +1,105 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Add product</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+IJP/OXgD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/4gk/+p2FeLOXgD/AAAAAAAAAAAAAAAAAAAAAP+IJP//iCT/zl4A/85eAP8AAAAAAAAAAAAAAAAAAAAAAAAAAP+IJP/qdhXizl4A/wAAAAAAAAAAAAAAAAAAAAD/iCT//4gk/85eAP/OXgD/AAAAAAAAAAAAAAAAAAAAAAAAAAD/iCT/6nYV4s5eAP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADnr4AjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO96GJ0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/iCT//4gk//+IJP//iCT//4gk//+IJP//iCT//4gk//+IJP//iCT//4gk/wAAAAAAAAAAAAAAAAAAAAAAAAAA/8SSbP/Ekmz/xJJs/8SSbP/Ekmz/xJJs/8SSbP/Ekmz/xJJs/8SSbP+IJP8AAAAAAAAAAAAAAAAAAAAAAAAAALzK/zB4lP+zeJT/s3iU/7N4lP+zVnn/s1Z5/7NWef+zVnn/s1Z5/7P/iCT//8SSRQAAAAAAAAAAAAAAAHiU//94lP//eJT//3iU//94lP//eJT//1Z5//9Wef//Vnn//1Z5//9Wef///4gk//+IJP8AAAAAAAAAAAAAAAB4lP//eJT//3iU//94lP//eJT//3iU//9Wef//Vnn//1Z5//9Wef//Vnn//+aGRd//iCT/AAAAAAAAAAAAAAAAeJT//3iU//94lP//eJT//3iU//94lP//Vnn//1Z5//9Wef//Vnn//1Z5//9Wef///4gk/wAAAAAAAAAAAAAAAHiU//94lP//eJT//3iU//94lP//eJT//1Z5//9Wef//Vnn//1Z5//9Wef//Vnn///+IJP8AAAAAAAAAALzK/yt4lP//eJT//3iU//94lP//eJT//3iU//9Wef//Vnn//1Z5//9Wef//Vnn//1Z5////iCT/AAAAAAAAAAB4lP//eJT//3iU//94lP//eJT//3iU//94lP//Vnn//1Z5//9Wef//Vnn//1Z5//9Wef///4gk///EkiMAAAAAeJT//3iU//94lP//eJT//3iU//94lP//eJT//1Z5//9Wef//Vnn//1Z5//9Wef//Vnn///+IJP//iCT/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/iCTi/4gk/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+IJP//iCT/z8cAAIfHAACHxwAA/+8AAMAHAAD/9wAA4AcAAIADAACAAwAAgAMAAIADAACAAwAAAAMAAAABAAD/+QAA//wAAA==" rel="icon" type="image/x-icon" />
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/main.css">
 </head>
+
 <body>
+
 <!--Navigation-->
-<!--<nav th:replace="fragments.html :: navigation"></nav>-->
+<nav th:replace="fragments.html :: navigation"></nav>
 <!--End navigation-->
-<form action="/products/add" method="POST">
-    <input type="text" name="productName">
-    <input type="text" name="productBrand">
-    <input type="text" name="description">
-    <input type="number" name="stock">
-    <input type="number" name="price">
-    <input type="text" name="image">
 
-    <button type="submit"> Add product</button>
+<main class="container">
+    <!--Breadcrumbs-->
+    <div class="row">
+        <nav aria-label="breadcrumb">
+            <ol  class="breadcrumb">
+                <li class="breadcrumb-item"><a href="product-list.html">Home</a></li>
+                <!--<li class="breadcrumb-item" th:text= "${categories.name}"></li>-->
 
-    <!--Footer-->
-    <!--<footer th:replace="fragments.html :: footer"></footer>-->
-    <!--End footer-->
+            </ol>
+        </nav>
+    </div>
+    <!--End breadcrumbs-->
 
-</form>
+    <!--Content-->
+    <div class="row">
+        <!--Categories-->
+        <div class="col-12 col-sm-3">
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
+                <ul th:each="category: ${categories}" class="list-group category_block">
+                    <!--<li class="list-group-item"><a href="category.html">Categories</a></li>-->
+                    <li class="list-group-item"><a th:text= "${category.name}" th:href="@{'products?category='+${category.id}}">Categories</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card-header">
+            <h3>Add new product:</h3>
+        </div>
+        <div class="d-flex justify-content-center h-100">
+            <form method="post" action="/products/add">
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input name="productName" type="text" class="form-control" placeholder=" productName" required>
+                </div>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input name="productBrand" type="text" class="form-control" placeholder=" Brand" required>
+                </div>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input name="description" type="message"class="form-control input-md" placeholder="Description" required>
+                </div>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input name="stock" type="int"class="form-control" placeholder="Stock" required>
+                </div>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input name="price" type="int"class="form-control" placeholder="Price" required>
+                </div>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input name="imageSource" type="text"class="form-control input-md" placeholder="Image" required>
+                </div>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input name="categoryId" type="int"class="form-control" placeholder="CategoryId" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">Add product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<!--Footer-->
+<footer th:replace="fragments.html :: footer"></footer>
+<!--End footer-->
+
 </body>
 </html>

@@ -23,7 +23,6 @@ import java.util.Map;
 
 @WebServlet(urlPatterns = "/cart")
 public class CardServlet extends HttpServlet {
-    private SecurityService defaultSecurityService= ServiceLocator.get(SecurityService.class);
     private CategoryService categoryService = ServiceLocator.get(CategoryService.class);
     private String requestedPage ="product-list.html";
 

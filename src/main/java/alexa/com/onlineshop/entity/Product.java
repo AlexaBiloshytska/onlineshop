@@ -8,7 +8,15 @@ public class Product {
     private Integer stock;
     private Integer price;
     private String imageSource;
+    private Integer categoryId;
 
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public Integer getId() {
         return id;

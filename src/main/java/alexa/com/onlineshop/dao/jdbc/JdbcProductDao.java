@@ -20,12 +20,7 @@ public class JdbcProductDao  implements ProductDao {
             "stock," +
             "price," +
             " image_source from product";
-    public static final String ADD_PRODUCT_SQL = "insert into products (product_id," +
-            "product_name," +
-            "brand," +
-            "description," +
-            "stock,price," +
-            " image_source)values (?,?,?,?,?,?,?)";
+    public static final String ADD_PRODUCT_SQL = "insert into product (product_name, brand, description, stock,price,image_source,category_id) values (?,?,?,?,?,?,?)";
 
     public static final String GET_BY_ID_SQL =
             "select * from product where id = ?";
@@ -33,9 +28,9 @@ public class JdbcProductDao  implements ProductDao {
     public static final String SEARCH_PRODUCT_SQL =
             "select * from product where product_name like ?";
 
-    public static final String DELETE_PRODUCT_SQL ="delete from product where id = ?";
+    public static final String DELETE_PRODUCT_SQL ="delete from product p where p.id = ?";
     public static final String GET_PRODUCT_BY_CATEGORY ="select * from product p join categories c on p.category_id  = c.id where c.id=?";
-    private Connection connection;
+
     private DataSource dataSource;
 
     public JdbcProductDao(DataSource dataSource) {
@@ -66,14 +61,15 @@ public class JdbcProductDao  implements ProductDao {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(ADD_PRODUCT_SQL);) {
 
-            preparedStatement.setInt(1, product.getId());
-            preparedStatement.setString(2, product.getProductName());
-            preparedStatement.setString(3, product.getProductBrand());
-            preparedStatement.setString(4, product.getDescription());
-            preparedStatement.setInt(5, product.getStock());
-            preparedStatement.setInt(6, product.getPrice());
-            preparedStatement.setString(7, product.getImageSource());
-            connection.commit();
+            preparedStatement.setString(1, product.getProductName());
+            preparedStatement.setString(2, product.getProductBrand());
+            preparedStatement.setString(3, product.getDescription());
+            preparedStatement.setInt(4, product.getStock());
+            preparedStatement.setInt(5, product.getPrice());
+            preparedStatement.setString(6, product.getImageSource());
+            preparedStatement.setInt(7,product.getCategoryId());
+            preparedStatement.execute();
+
 
             System.out.println("Data is successfully inserted: " + product);
 
@@ -89,6 +85,7 @@ public class JdbcProductDao  implements ProductDao {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT_SQL);
+            preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
