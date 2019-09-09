@@ -4,6 +4,7 @@ package alexa.com.onlineshop.servlet.view;
 import alexa.com.onlineshop.ServiceLocator;
 import alexa.com.onlineshop.entity.*;
 import alexa.com.onlineshop.service.CategoryService;
+import alexa.com.onlineshop.service.impl.DefaultCategoryService;
 import alexa.com.onlineshop.templater.TemplateProcessor;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -20,7 +21,7 @@ import java.util.Map;
 
 @WebServlet(urlPatterns = "/cart")
 public class CardServlet extends HttpServlet {
-    private CategoryService categoryService = ServiceLocator.get(CategoryService.class);
+    private CategoryService categoryService = ServiceLocator.get(DefaultCategoryService.class);
     private String requestedPage ="product-list.html";
 
     @Override

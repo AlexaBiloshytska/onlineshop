@@ -6,6 +6,7 @@ import alexa.com.onlineshop.entity.User;
 import alexa.com.onlineshop.service.SecurityService;
 import alexa.com.onlineshop.service.UserService;
 import alexa.com.onlineshop.service.impl.DefaultSecurityService;
+import alexa.com.onlineshop.service.impl.DefaultUserService;
 import alexa.com.onlineshop.templater.TemplateProcessor;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.thymeleaf.TemplateEngine;
@@ -24,8 +25,8 @@ import java.util.UUID;
 @WebServlet(urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     private static final int MAX_SESSION_AGE_SEC = 6000; // TODO: create property file in resource folder
-    private UserService userService = ServiceLocator.get(UserService.class);
-    private SecurityService sessionService = ServiceLocator.get(SecurityService.class); // Use interface instead
+    private UserService userService = ServiceLocator.get(DefaultUserService.class);
+    private SecurityService sessionService = ServiceLocator.get(DefaultSecurityService.class); // Use interface instead
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

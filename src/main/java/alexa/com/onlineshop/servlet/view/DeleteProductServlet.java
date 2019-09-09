@@ -6,6 +6,7 @@ import alexa.com.onlineshop.entity.Product;
 import alexa.com.onlineshop.entity.Session;
 import alexa.com.onlineshop.entity.User;
 import alexa.com.onlineshop.service.ProductService;
+import alexa.com.onlineshop.service.impl.DefaultProductService;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ import static alexa.com.onlineshop.entity.Role.ADMIN;
 
 @WebServlet(urlPatterns = "/product/delete")
 public class DeleteProductServlet extends HttpServlet {
-    private ProductService productService = ServiceLocator.get(ProductService.class);
+    private ProductService productService = ServiceLocator.get(DefaultProductService.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Session session = ((AuthPrincipal) request.getUserPrincipal()).getSession();

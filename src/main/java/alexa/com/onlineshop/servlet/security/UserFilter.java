@@ -4,6 +4,8 @@ import alexa.com.onlineshop.ServiceLocator;
 import alexa.com.onlineshop.entity.Session;
 import alexa.com.onlineshop.service.SecurityService;
 import alexa.com.onlineshop.entity.AuthRequestWrapper;
+import alexa.com.onlineshop.service.impl.DefaultCategoryService;
+import alexa.com.onlineshop.service.impl.DefaultSecurityService;
 import org.slf4j.MDC;
 
 import javax.servlet.*;
@@ -15,7 +17,7 @@ import java.io.IOException;
 
 @WebFilter(urlPatterns = "/*")
 public class UserFilter  implements Filter {
-    private SecurityService securityService = ServiceLocator.get(SecurityService.class);
+    private SecurityService securityService = ServiceLocator.get(DefaultSecurityService.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {}

@@ -19,7 +19,7 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/cart/add")
 public class AddToCardServlet extends HttpServlet {
-    private ProductService productService = ServiceLocator.get(ProductService.class);
+    private ProductService productService = ServiceLocator.get(DefaultProductService.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse  response){
         Session session = ((AuthPrincipal) request.getUserPrincipal()).getSession();

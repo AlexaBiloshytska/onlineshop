@@ -26,9 +26,6 @@ public class JdbcProductDao implements ProductDao {
     private static final String GET_PRODUCT_BY_CATEGORY = "select * from product p join categories c on p.category_id  = c.id where c.id=?";
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcProductDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public List<Product> getAll() {
@@ -79,5 +76,9 @@ public class JdbcProductDao implements ProductDao {
     @Override
     public List<Product> searchByName(String name) {
         return jdbcTemplate.query(SEARCH_PRODUCT_SQL, PRODUCT_MAPPER, name);
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 }

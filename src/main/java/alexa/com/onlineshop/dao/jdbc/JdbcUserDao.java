@@ -25,9 +25,7 @@ public class JdbcUserDao implements UserDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcUserDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+
 
     public List<User> getAll() {
         return jdbcTemplate.query(GET_ALL_SQL, USER_MAPPER);
@@ -59,6 +57,10 @@ public class JdbcUserDao implements UserDao {
 
     public User getUserByEmail(String email) {
         return jdbcTemplate.queryForObject(GET_USER_BY_EMAIL, USER_MAPPER, email);
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 }
 

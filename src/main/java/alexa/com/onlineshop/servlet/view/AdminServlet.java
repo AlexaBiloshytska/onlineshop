@@ -4,6 +4,8 @@ import alexa.com.onlineshop.ServiceLocator;
 import alexa.com.onlineshop.entity.*;
 import alexa.com.onlineshop.service.CategoryService;
 import alexa.com.onlineshop.service.ProductService;
+import alexa.com.onlineshop.service.impl.DefaultCategoryService;
+import alexa.com.onlineshop.service.impl.DefaultProductService;
 import alexa.com.onlineshop.templater.TemplateProcessor;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -25,8 +27,8 @@ import static alexa.com.onlineshop.entity.Role.ADMIN;
 
 @WebServlet(urlPatterns = "/admin/products")
 public class AdminServlet extends HttpServlet {
-    private ProductService productService = ServiceLocator.get(ProductService.class);
-    private CategoryService categoryService = ServiceLocator.get(CategoryService.class);
+    private ProductService productService = ServiceLocator.get(DefaultProductService.class);
+    private CategoryService categoryService = ServiceLocator.get(DefaultCategoryService.class);
     private String requestedPage ="admin.html";
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

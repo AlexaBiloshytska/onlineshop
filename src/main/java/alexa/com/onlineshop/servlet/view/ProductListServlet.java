@@ -3,6 +3,8 @@ package alexa.com.onlineshop.servlet.view;
 import alexa.com.onlineshop.entity.*;
 import alexa.com.onlineshop.service.CategoryService;
 import alexa.com.onlineshop.service.ProductService;
+import alexa.com.onlineshop.service.impl.DefaultCategoryService;
+import alexa.com.onlineshop.service.impl.DefaultProductService;
 import alexa.com.onlineshop.templater.TemplateProcessor;
 import alexa.com.onlineshop.ServiceLocator;
 import org.slf4j.Logger;
@@ -24,8 +26,8 @@ import java.util.Map;
 @WebServlet(urlPatterns = "/products")
 public class ProductListServlet extends HttpServlet {
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private ProductService productService = ServiceLocator.get(ProductService.class);
-    private CategoryService categoryService = ServiceLocator.get(CategoryService.class);
+    private ProductService productService = ServiceLocator.get(DefaultProductService.class);
+    private CategoryService categoryService = ServiceLocator.get(DefaultCategoryService.class);
     private String requestedPage ="product-list.html";
 
 

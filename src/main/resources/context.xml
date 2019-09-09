@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans>
+    <bean id="dataSource" class="org.postgresql.ds.PGPoolingDataSource">
+        <property name="serverName" value = "ec2-54-228-224-37.eu-west-1.compute.amazonaws.com"/>
+        <property name="databaseName" value="d6hd4raa7s2md8"/>
+        <property name="user" value="rvtwtvhohmgbpq"/>
+        <property name="password" value="79b60efd633d2197e8db5f053b3b1f6a223bed447eaddbbf63c89ab3bd2c1991"/>
+        <property name="ssl" value="true"/>
+        <property name="sslfactory" value="org.postgresql.ssl.NonValidatingFactory"/>
+        <property name="portNumber" value="5432"/>
+        <property name="maxConnections" value="10"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="com.alexa.jdbc.template.NamedParameterJDBCTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="productDao" class="alexa.com.onlineshop.dao.jdbc.JdbcProductDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="categoryDao" class="alexa.com.onlineshop.dao.jdbc.JdbcCategoryDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="userDao" class="alexa.com.onlineshop.dao.jdbc.JdbcUserDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="defaultUserService" class="alexa.com.onlineshop.service.impl.DefaultUserService">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="defaultProductService" class="alexa.com.onlineshop.service.impl.DefaultProductService">
+        <property name="productDao" ref="productDao"/>
+    </bean>
+
+    <bean id="defaultCategoryService" class="alexa.com.onlineshop.service.impl.DefaultCategoryService">
+        <property name="categoryDao" ref="categoryDao"/>
+    </bean>
+
+    <bean id="defaultSecurityService" class="alexa.com.onlineshop.service.impl.DefaultSecurityService">
+    </bean>
+
+</beans>

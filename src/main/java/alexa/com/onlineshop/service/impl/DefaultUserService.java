@@ -1,6 +1,7 @@
 package alexa.com.onlineshop.service.impl;
 
 import alexa.com.onlineshop.dao.UserDao;
+import alexa.com.onlineshop.dao.jdbc.JdbcUserDao;
 import alexa.com.onlineshop.entity.User;
 import alexa.com.onlineshop.service.UserService;
 
@@ -9,14 +10,6 @@ import java.util.logging.Logger;
 
 public class DefaultUserService implements UserService {
     private UserDao userDao;
-
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
-    }
-
-    public DefaultUserService(UserDao userDao) {
-        this.userDao = userDao;
-    }
 
     public List<User> getAll() {
         return userDao.getAll();
@@ -42,5 +35,8 @@ public class DefaultUserService implements UserService {
         return userDao.getUserByEmail(email);
     }
 
+    public void setUserDao(JdbcUserDao userDao) {
+        this.userDao = userDao;
+    }
 
 }

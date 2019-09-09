@@ -2,8 +2,10 @@ package alexa.com.onlineshop.servlet.view;
 
 import alexa.com.onlineshop.ServiceLocator;
 import alexa.com.onlineshop.entity.User;
+import alexa.com.onlineshop.service.SecurityService;
 import alexa.com.onlineshop.service.UserService;
 import alexa.com.onlineshop.service.impl.DefaultSecurityService;
+import alexa.com.onlineshop.service.impl.DefaultUserService;
 import alexa.com.onlineshop.templater.TemplateProcessor;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
@@ -21,8 +23,7 @@ import java.util.UUID;
 @WebServlet(urlPatterns = "/registration")
 public class AddUserServlet extends HttpServlet {
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private UserService userService = ServiceLocator.get(UserService.class);
-    private DefaultSecurityService sessionService = ServiceLocator.get(DefaultSecurityService.class);
+    private UserService userService = ServiceLocator.get(DefaultUserService.class);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         TemplateEngine engine = TemplateProcessor.process();

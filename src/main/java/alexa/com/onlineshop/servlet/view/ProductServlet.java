@@ -4,6 +4,8 @@ import alexa.com.onlineshop.ServiceLocator;
 import alexa.com.onlineshop.entity.*;
 import alexa.com.onlineshop.service.CategoryService;
 import alexa.com.onlineshop.service.ProductService;
+import alexa.com.onlineshop.service.impl.DefaultCategoryService;
+import alexa.com.onlineshop.service.impl.DefaultProductService;
 import alexa.com.onlineshop.templater.TemplateProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +27,9 @@ import java.util.Map;
 @WebServlet(urlPatterns = "/products/*")
 public class ProductServlet extends HttpServlet {
     private final Logger LOG = LoggerFactory.getLogger(getClass());
-    private ProductService productService = ServiceLocator.get(ProductService.class);
+    private ProductService productService = ServiceLocator.get(DefaultProductService.class);
     private String requestedPage = "product.html";
-    private CategoryService categoryService = ServiceLocator.get(CategoryService.class);
+    private CategoryService categoryService = ServiceLocator.get(DefaultCategoryService.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
