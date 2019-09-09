@@ -13,6 +13,8 @@ import alexa.com.onlineshop.service.impl.DefaultUserService;
 import alexa.com.onlineshop.service.ProductService;
 import alexa.com.onlineshop.service.UserService;
 
+import com.alexa.jdbc.JdbcTemplate;
+import com.alexa.jdbc.template.NamedParameterJDBCTemplate;
 import org.postgresql.ds.PGPoolingDataSource;
 
 import java.util.HashMap;
@@ -39,9 +41,20 @@ public class ServiceLocator {
         source.setPortNumber(5432);
         source.setMaxConnections(10);
 
-        UserDao userDao = new JdbcUserDao(source);
-        ProductDao productDao = new JdbcProductDao(source);
-        CategoryDao categoryDao = new JdbcCategoryDao(source);
+        JdbcTemplate jdbcTemplate = new NamedParameterJDBCTemplate(source);
+
+        UserDao userDao = new JdbcUserDao(jdbcTemplate);
+        ProductDao productDao = new JdbcProductDao(jdbcTemplate);
+        CategoryDao categoryDao = new JdbcCategoryDao(jdbcTemplate);
+
+        /*
+        <bean id="jdbcUserDao" class="alexa.com.onlineshop.dao.jdbc.JdbcUserDao">
+        </bean>
+
+        <bean id="defaultUserService" class="alexa.com.onlineshop.dao.jdbc.DefaultUserService">
+            <param="UserDao" ref="jdbcUserDao" >
+        </bean>
+         */
 
         // config services
         UserService userService = new DefaultUserService(userDao);

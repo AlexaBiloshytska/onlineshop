@@ -2,11 +2,12 @@ package alexa.com.onlineshop.dao.mapper;
 
 import alexa.com.onlineshop.entity.Role;
 import alexa.com.onlineshop.entity.User;
+import com.alexa.jdbc.mapper.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserMapper {
+public class UserMapper implements RowMapper<User> {
 
     public User mapRow(ResultSet resultSet) throws SQLException {
         // Retrieve by column name
