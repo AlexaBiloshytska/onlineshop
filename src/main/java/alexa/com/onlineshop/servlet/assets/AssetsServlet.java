@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.logging.Logger;
 
-@WebServlet("/*")
+@WebServlet("/assets/*")
 public class AssetsServlet extends HttpServlet {
 
     private static final Logger LOG = Logger.getLogger(AssetsServlet.class.getName());

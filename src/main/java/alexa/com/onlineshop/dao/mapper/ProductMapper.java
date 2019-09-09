@@ -1,11 +1,12 @@
 package alexa.com.onlineshop.dao.mapper;
 
 import alexa.com.onlineshop.entity.Product;
+import com.alexa.jdbc.mapper.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ProductMapper {
+public class ProductMapper implements RowMapper<Product> {
     public Product mapRow(ResultSet resultSet) throws SQLException {
         Integer id = resultSet.getInt("id");
         String productName = resultSet.getString("product_name");

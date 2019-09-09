@@ -115,6 +115,11 @@
             <version>1.11</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.alexa.jdbc</groupId>
+            <artifactId>jdbc-template</artifactId>
+            <version>0.0.1-RELEASE</version>
+        </dependency>
 
     </dependencies>
 </project>
